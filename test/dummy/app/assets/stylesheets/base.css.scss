@@ -1,0 +1,50 @@
+%sans-serif {
+  font-family: "museo-sans", Avenir;
+}
+%centered-standard-width {
+  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+html {
+  font-size: 20px;
+  font-family: "minion-pro", "Minion Pro";
+}
+.anecdote-wysicontent-ndj4ab {
+  > h1, > h2, > h3, > h4 {
+    @extend %sans-serif;
+  }
+  > h1, > h2, > h3, > h4, > p, > ul, > ol, > blockquote, > pre {
+    @extend %centered-standard-width;
+    .anecdote-wysicontent-ndj4ab & {
+      max-width: none;
+    }
+  }
+}
+
+
+.anecdote-intrinsic-embed-n42ha1 {
+  box-shadow: 0 1px 4px -1px rgba( 0, 0, 0, 0.2 );
+  border-top: 1px solid rgba( 0, 0, 0, 0.035 );
+  border-radius: 3px;
+}
+
+
+.anecdote-module-3ba83n {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  @extend %centered-standard-width;
+  &.v-size-full-width { max-width: none; }
+  &.v-size-big { max-width: 40rem; }
+  &.v-size-medium { max-width: 20rem; }
+  &.v-size-small { max-width: 10rem; }
+}
+
+
+.anecdote-pull-quote-sba2ha {
+  @extend %sans-serif;
+  em {
+    font-style: normal;
+  }
+}

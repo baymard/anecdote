@@ -1,0 +1,12 @@
+@mixin formatted-text( $tmp-size: 1, $tmp-margin-top: 1, $tmp-margin-bottom: 1, $tmp-line-height: 1.5 ) {
+  font-size: $tmp-size * 1em;
+  @if $tmp-line-height != false {
+    line-height: ( 1 + ( ( $tmp-line-height - 1 ) / $tmp-size ) ) * 1em
+  }
+  @if $tmp-margin-top != false {
+    margin-top: ( $tmp-margin-top / $tmp-size ) * 1em
+  }
+  @if $tmp-margin-bottom != false {
+    margin-bottom: ( $tmp-margin-bottom / $tmp-size ) * 1em
+  }
+}
