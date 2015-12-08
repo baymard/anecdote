@@ -23,23 +23,9 @@
     &:after { content: '\201D' }
   }
   > ul, > ol {
-    padding-left: 1.5em;
     > li {
+      padding-left: 1.5em;
       @include formatted-text( 1, 0.75, 0.75 );
-    }
-  }
-  .generatedcontent & > ul > li {
-    list-style: none;
-    position: relative;
-    &:before {
-      background-color: #777;
-      display: block;
-      position: absolute;
-      top: 0.57em;
-      left: -1em;
-      width: 4px;
-      height: 4px;
-      content: '';
     }
   }
 }
@@ -64,8 +50,64 @@
 }
 
 .anecdote-module-3ba83n {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  @include margin-vertical( 1rem );
+  max-width: 100%;
+
+  &.v-float-right, &.v-float-left {
+    @include margin-horizontal( auto );
+  }
+//
+//
+//   &.v-float-right, &.v-float-left
+//   margin: 1rem auto
+//   max-width: 100%
+// @include respond-min(average-handheld)
+//   &.v-size-small
+//     width: 10rem
+//     margin: 0.75rem 2rem
+//     &.v-float-right
+//       float: right
+//       margin-right: 0
+//     &.v-float-left
+//       float: left
+//       margin-left: 0
+// @include respond-min(large-handheld)
+//   &.v-size-medium
+//     width: 15rem
+//     margin: 0.75rem 2rem
+//     &.v-float-right
+//       float: right
+//       margin-right: 0
+//     &.v-float-left
+//       float: left
+//       margin-left: 0
+// @include respond-min(tablet)
+//   &.v-size-big
+//     width: 20rem
+//     margin: 0.75rem 2rem
+//     &.v-float-right
+//       float: right
+//       margin-right: 0
+//     &.v-float-left
+//       float: left
+//       margin-left: 0
+//
+// &.v-full-fill
+//   max-width: 100%
+//   @include respond-min(laptop)
+//     &.graphic
+//       $tmp-width: 12rem
+//       .caption
+//         position: absolute
+//         top: 0
+//         right: 0
+//         width: $tmp-width - 1rem
+//         &.v-positive:before
+//           content: '+ '
+//       .image
+//         margin-right: $tmp-width
+
+
 }
 
 .anecdote-pull-quote-sba2ha {
@@ -77,5 +119,4 @@
   border-right: none;
   padding-top: 1rem;
   padding-bottom: 1rem;
-
 }

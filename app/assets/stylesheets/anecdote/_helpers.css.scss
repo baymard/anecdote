@@ -10,3 +10,87 @@
     margin-bottom: ( $tmp-margin-bottom / $tmp-size ) * 1em
   }
 }
+
+
+$respond-device-medium-handheld: 350px;
+$respond-device-large-handheld: 430px;
+$respond-device-tablet: 650px;
+$respond-device-laptop: 960px;
+$respond-device-large-monitor: 1250px;
+$fix-mqs: false !default;
+
+@mixin respond($type, $device) {
+  // Determine device width
+  $width: 1px;
+  @if $device == medium-handheld {
+    $width: $respond-device-medium-handheld;
+  } @else if $device == large-handheld {
+    $width: $respond-device-large-handheld;
+  } @else if $device == tablet {
+    $width: $respond-device-tablet;
+  } @else if $device == laptop {
+    $width: $respond-device-laptop;
+  } @else if $device == large-monitor {
+    $width: $respond-device-large-monitor;
+  }
+  // If we're outputting for a fixed media query set...
+  @if $fix-mqs and $type == min {
+    // ...and if we should apply these rules...
+    @if $fix-mqs >= $width {
+      // ...output the content the user gave us.
+      @content;
+    }
+  } @else {
+    // Otherwise, output it using a regular media query
+    @if $type == min {
+      @media screen and (min-width: $width) {
+        @content;
+      }
+    } @else if $type == max {
+      @media screen and (max-width: $width) {
+        @content;
+      }
+    }
+  }
+}
+
+$old-ie: false !default;
+@mixin old-ie {
+  // Only use this content if we're dealing with old IE
+  @if $old-ie {
+    @content;
+  }
+}
+
+
+@mixin padding-vertical( $tmp-size, $tmp-second-size: false ) {
+  padding-top: $tmp-size;
+  @if $tmp-second-size == false {
+    $tmp-second-size: $tmp-size;
+  }
+  padding-bottom: $tmp-second-size;
+}
+
+@mixin padding-horizontal( $tmp-size, $tmp-second-size: false ) {
+  padding-left: $tmp-size;
+  @if $tmp-second-size == false {
+    $tmp-second-size: $tmp-size;
+  }
+  padding-right: $tmp-second-size;
+}
+
+@mixin margin-vertical( $tmp-size, $tmp-second-size: false ) {
+  margin-top: $tmp-size;
+  @if $tmp-second-size == false {
+    $tmp-second-size: $tmp-size;
+  }
+  margin-bottom: $tmp-second-size;
+}
+
+@mixin margin-horizontal( $tmp-size, $tmp-second-size: false ) {
+  margin-left: $tmp-size;
+  @if $tmp-second-size == false {
+    $tmp-second-size: $tmp-size;
+  }
+  margin-right: $tmp-second-size;
+}

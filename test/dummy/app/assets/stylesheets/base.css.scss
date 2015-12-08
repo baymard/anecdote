@@ -2,7 +2,8 @@
   font-family: "museo-sans", Avenir;
 }
 %centered-standard-width {
-  max-width: 30rem;
+  width: 30rem;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -11,6 +12,8 @@ html {
   font-size: 20px;
   font-family: "minion-pro", "Minion Pro";
 }
+
+
 .anecdote-wysicontent-ndj4ab {
   > h1, > h2, > h3, > h4 {
     @extend %sans-serif;
@@ -20,6 +23,12 @@ html {
     .anecdote-wysicontent-ndj4ab & {
       max-width: none;
     }
+  }
+  strong {
+    font-weight: 600;
+  }
+  em {
+    font-style: italic;
   }
 }
 
@@ -35,10 +44,10 @@ html {
   margin-top: 1rem;
   margin-bottom: 1rem;
   @extend %centered-standard-width;
-  &.v-size-full-width { max-width: none; }
-  &.v-size-big { max-width: 40rem; }
-  &.v-size-medium { max-width: 20rem; }
-  &.v-size-small { max-width: 10rem; }
+  &.v-size-full-width { width: auto; }
+  &.v-size-big { width: 40rem; }
+  &.v-size-medium { width: 20rem; }
+  &.v-size-small { width: 10rem; }
 }
 
 
@@ -46,5 +55,18 @@ html {
   @extend %sans-serif;
   em {
     font-style: normal;
+  }
+}
+
+
+// Prevent iOS and IE text size adjust after device orientation change without disabling user zoom
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+// Prevent iOS auto-zoom on form focus without disabling user zoom
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select, textarea, input {
+    font-size: 16px;
   }
 }
