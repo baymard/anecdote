@@ -21,7 +21,7 @@ module Anecdote
   def self.init_raconteur
     raconteur.settings.setting_quotes = '$'
     raconteur.processors.register!('graphic', {
-      template: '<div class="{{ klass }}"><div class="image">{{ image }}</div><div class="caption">{{ caption }}</div></div>',
+      template: '<div class="{{ klass }}"><div class="inner"><div class="image">{{ image }}</div><div class="caption">{{ caption }}</div></div></div>',
       handler: lambda do |settings|
         klass = (['anecdote-graphic-dn32ja'] + module_classes(settings)).flatten.join(' ')
         image = view_context.content_tag(:div, class: 'anecdote-intrinsic-embed-n42ha1') do
@@ -35,7 +35,7 @@ module Anecdote
     raconteur.processors.register!('pull-quote', {
       handler: lambda do |settings|
         klass = (['anecdote-pull-quote-sba2ha'] + module_classes(settings)).flatten.join(' ')
-        view_context.content_tag(:div, markdown_and_parse(settings[:_yield_]), class: klass)
+        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:_yield_]), class: 'inner'), class: klass)
       end
       })
   end

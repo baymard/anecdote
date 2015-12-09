@@ -2,9 +2,13 @@
 
 {{ graphic: assets-path=category-specific-sorting-01-rei-mock-up.jpg + size=full-width + caption=$This is the 3rd in a series of 9 articles based on research findings from our e-commerce [product list usability](http://baymard.com/research/ecommerce-product-lists study).$ }}
 
+{{% pull-quote: size=medium + float=right %}}
+"the sort type all users want but zero sites offer"
+{{% end %}}
+
 We considered naming this article "the sort type all users want but zero sites offer" because category-specific sorting really is one of those rare instances where an obvious feature has somehow been **completely overlooked** by the e-commerce community. After all, it really shouldn't come as a surprise that users would like to sort a list of TVs by "Screen size" or a collection of hard drives by "Storage capacity".
 
-{{% pull-quote: float=left + size=big %}}
+{{% pull-quote: size=big %}}
 By "category-specific sort types" we mean any sorting options that are only available in one or a few select categories
 {{% end %}}
 
@@ -12,7 +16,7 @@ During our research study on product list usability the test subjects repeatedly
 
 In this article we'll outline our research findings on why **category-specific sorting** is so important to the user's product finding abilities, and how it can be implemented.
 
-{{ graphic: assets-path=category-specific-sorting-02-bestbuy.jpg + caption=$A mockup we've created of what category-specific sort types could look like at BestBuy. Here the three last sorting options – for TV screen size, refresh rate, and display depth – are available exclusively within the TV category while the other sort types are available site-wide.$ }}
+{{ graphic: float=left + size=small + assets-path=category-specific-sorting-02-bestbuy.jpg + caption=$A mockup we've created of what category-specific sort types could look like at BestBuy. Here the three last sorting options – for TV screen size, refresh rate, and display depth – are available exclusively within the TV category while the other sort types are available site-wide.$ }}
 
 Given that category-specific sorting is such an uncommon features, let's quickly **define** the term. By "category-specific sort types" we mean any sorting options that are only available in one or a few select categories (because they wouldn't make sense as site-wide sorting options – they only make sense for the products within those particular categories). Examples include being able to sort suitcases by volume, fishing rods by length, pens by point size, hard drives by storage capacity and spindle speed, road bikes by weight, etc. It's this category specificity that makes them different from common site-wide sort types such as 'Best Selling', 'Relevance', 'User Ratings', and 'Price', which are typically available for all products and categories throughout a site.
 

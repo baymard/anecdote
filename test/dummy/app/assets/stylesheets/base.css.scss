@@ -1,3 +1,62 @@
+$respond-device-medium-handheld: 350px;
+$respond-device-large-handheld: 430px;
+$respond-device-tablet: 650px;
+$respond-device-laptop: 960px;
+$respond-device-large-monitor: 1300px;
+$fix-mqs: false !default;
+
+@mixin respond($type, $device) {
+  // Determine device width
+  $width: 1px;
+  @if $device == medium-handheld {
+    $width: $respond-device-medium-handheld;
+  } @else if $device == large-handheld {
+    $width: $respond-device-large-handheld;
+  } @else if $device == tablet {
+    $width: $respond-device-tablet;
+  } @else if $device == laptop {
+    $width: $respond-device-laptop;
+  } @else if $device == large-monitor {
+    $width: $respond-device-large-monitor;
+  }
+  // If we're outputting for a fixed media query set...
+  @if $fix-mqs and $type == min {
+    // ...and if we should apply these rules...
+    @if $fix-mqs >= $width {
+      // ...output the content the user gave us.
+      @content;
+    }
+  } @else {
+    // Otherwise, output it using a regular media query
+    @if $type == min {
+      @media screen and (min-width: $width) {
+        @content;
+      }
+    } @else if $type == max {
+      @media screen and (max-width: $width) {
+        @content;
+      }
+    }
+  }
+}
+
+$old-ie: false !default;
+@mixin old-ie {
+  // Only use this content if we're dealing with old IE
+  @if $old-ie {
+    @content;
+  }
+}
+
+%undo-page-padding {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  @include respond(min, tablet) {
+    margin-left: -2rem;
+    margin-right: -2rem;
+  }
+}
+
 %sans-serif {
   font-family: "museo-sans", Avenir;
 }
@@ -9,8 +68,27 @@
 }
 
 html {
-  font-size: 20px;
   font-family: "minion-pro", "Minion Pro";
+  font-size: 16px;
+  @include respond(min, large-handheld) {
+    font-size: 18px;
+  }
+  @include respond(min, tablet) {
+    font-size: 20px;
+  }
+  @include respond(min, large-monitor) {
+    font-size: 22px;
+  }
+  padding: 1em;
+  @include respond(min, tablet) {
+    padding: 2em;
+  }
+}
+
+
+.container-s2n3k1 {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 
@@ -44,7 +122,12 @@ html {
   margin-top: 1rem;
   margin-bottom: 1rem;
   @extend %centered-standard-width;
-  &.v-size-full-width { width: auto; }
+  &.v-size-full-width {
+    width: auto;
+    > .inner {
+      @extend %undo-page-padding;
+    }
+  }
   &.v-size-big { width: 40rem; }
   &.v-size-medium { width: 20rem; }
   &.v-size-small { width: 10rem; }

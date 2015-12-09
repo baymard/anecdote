@@ -56,6 +56,32 @@
   &.v-float-right, &.v-float-left {
     @include margin-horizontal( auto );
   }
+  @include respond(min, large-handheld) {
+    &.v-size-small {
+      margin: 0.75rem 2rem;
+      &.v-float-right {
+        float: right;
+        margin-right: 0;
+      }
+      &.v-float-left {
+        float: left;
+        margin-left: 0;
+      }
+    }
+  }
+  @include respond(min, laptop) {
+    &.v-size-medium {
+      margin: 0.75rem 2rem;
+      &.v-float-right {
+        float: right;
+        margin-right: 0;
+      }
+      &.v-float-left {
+        float: left;
+        margin-left: 0;
+      }
+    }
+  }
 //
 //
 //   &.v-float-right, &.v-float-left
@@ -119,4 +145,14 @@
   border-right: none;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  @include respond(max, large-handheld) {
+    &.v-size-small {
+      width: 100%;
+    }
+  }
+  @include respond(max, laptop) {
+    &.v-size-medium {
+      width: 100%;
+    }
+  }
 }
