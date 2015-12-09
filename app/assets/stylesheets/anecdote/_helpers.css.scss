@@ -1,16 +1,5 @@
-@mixin formatted-text( $tmp-size: 1, $tmp-margin-top: 1, $tmp-margin-bottom: 1, $tmp-line-height: 1.5 ) {
-  font-size: $tmp-size * 1em;
-  @if $tmp-line-height != false {
-    line-height: ( 1 + ( ( $tmp-line-height - 1 ) / $tmp-size ) ) * 1em
-  }
-  @if $tmp-margin-top != false {
-    margin-top: ( $tmp-margin-top / $tmp-size ) * 1em
-  }
-  @if $tmp-margin-bottom != false {
-    margin-bottom: ( $tmp-margin-bottom / $tmp-size ) * 1em
-  }
-}
 
+$remify-baseline: 20;
 
 $respond-device-medium-handheld: 350px;
 $respond-device-large-handheld: 430px;
@@ -19,6 +8,59 @@ $respond-device-laptop: 960px;
 $respond-device-large-monitor: 1250px;
 $fix-mqs: false !default;
 
+
+
+
+
+@mixin formatted-text( $tmp-size: 1, $tmp-margin-top: 1, $tmp-margin-bottom: 1, $tmp-line-height: 1.65 ) {
+  @include remify( font-size, $tmp-size );
+  @if $tmp-line-height != false {
+    line-height: ( 1 + ( ( $tmp-line-height - 1 ) / $tmp-size ) ) * 1em;
+  }
+  @if $tmp-margin-top != false {
+    margin-top: ( $tmp-margin-top / $tmp-size ) * 1em;
+  }
+  @if $tmp-margin-bottom != false {
+    margin-bottom: ( $tmp-margin-bottom / $tmp-size ) * 1em;
+  }
+}
+
+
+// remify units
+
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@mixin remify($properties, $values...) {
+  @each $property in $properties {
+    $max: length($values);
+    $pxValues: '';
+    $remValues: '';
+
+    @for $i from 1 through $max {
+      $value: strip-unit(nth($values, $i));
+      $pxValues: #{$pxValues + round($value*$remify-baseline)}px;
+      @if $i < $max {
+        $pxValues: #{$pxValues + " "};
+      }
+    }
+
+    @for $i from 1 through $max {
+      $value: strip-unit(nth($values, $i));
+      $remValues: #{$remValues + $value}rem;
+      @if $i < $max {
+        $remValues: #{$remValues + " "};
+      }
+    }
+
+    #{$property}: $pxValues;
+    #{$property}: $remValues;
+  }
+}
+
+
+// responsive breakpoints
 @mixin respond($type, $device) {
   // Determine device width
   $width: 1px;
