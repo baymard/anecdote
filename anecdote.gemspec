@@ -21,7 +21,8 @@ Gem::Specification.new do |s|
   s.add_dependency "sass-rails"
   s.add_dependency "uglifier"
   s.add_dependency "raconteur"
-
+  s.add_dependency "kramdown"
+  
   s.add_development_dependency "byebug"
   s.add_development_dependency "minitest"
   s.add_development_dependency "guard"
@@ -29,7 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "guard-livereload"
   s.add_development_dependency "rack-livereload"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "kramdown"
   s.add_development_dependency "paperclip"
 
 end
