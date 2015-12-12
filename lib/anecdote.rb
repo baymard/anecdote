@@ -35,7 +35,7 @@ module Anecdote
     raconteur.processors.register!('pull-quote', {
       handler: lambda do |settings|
         klass = (['anecdote-pull-quote-sba2ha'] + module_classes(settings)).flatten.join(' ')
-        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:_yield_]), class: 'inner'), class: klass)
+        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:text]), class: 'inner'), class: klass)
       end
       })
   end

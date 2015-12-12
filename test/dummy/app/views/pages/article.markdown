@@ -2,15 +2,9 @@
 
 {{ graphic: assets-path=category-specific-sorting-01-rei-mock-up.jpg + size=full-width + caption=$This is the 3rd in a series of 9 articles based on research findings from our e-commerce [product list usability](http://baymard.com/research/ecommerce-product-lists study).$ }}
 
-{{% pull-quote: size=medium + float=right %}}
-"the sort type all users want but zero sites offer"
-{{% end %}}
-
 We considered naming this article "the sort type all users want but zero sites offer" because category-specific sorting really is one of those rare instances where an obvious feature has somehow been **completely overlooked** by the e-commerce community. After all, it really shouldn't come as a surprise that users would like to sort a list of TVs by "Screen size" or a collection of hard drives by "Storage capacity".
 
-{{% pull-quote: size=big %}}
-By "category-specific sort types" we mean any sorting options that are only available in one or a few select categories
-{{% end %}}
+{{ pull-quote: size=big + text=$By "category-specific sort types" we mean any sorting options that are only available in one or a few select categories$ }}
 
 During our research study on product list usability the test subjects repeatedly sought out these kinds of category-specific sort types – however, to no avail since seemingly **zero sites** offer them. Even after [benchmarking](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) the product lists of 50 major e-commerce sites we have yet to find a site that truly offer category-specific sorting.
 

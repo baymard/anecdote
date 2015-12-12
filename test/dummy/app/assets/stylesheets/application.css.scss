@@ -1,33 +1,120 @@
-@import 'anecdote/application.css.scss';
+$remify-baseline: 20;
 @import 'reset.css.scss';
+@import 'anecdote/application.css.scss';
 
 /*---------------------------------------------------
---- Page Margins
+--- Helpers
 --------------------------------------------------- */
-%add-page-padding {
+@mixin primary-font {
+  font-family: "minion-pro", "Minion Pro";
+}
+@mixin secondary-font {
+  font-family: "museo-sans", Avenir;
+}
+@mixin centered-standard-width {
+  width: 30rem;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+@mixin add-page-padding {
   @include remify(padding-left padding-right, 1);
   @include respond(min, tablet) {
     @include remify(padding-left padding-right, 2);
   }
 }
-%undo-page-padding {
+@mixin undo-page-padding {
   @include remify(margin-left margin-right, -1);
   @include respond(min, tablet) {
     @include remify(margin-left margin-right, -2);
   }
 }
-body {
-  @extend %add-page-padding;
+
+/*---------------------------------------------------
+--- Anecdote: Wysicontent
+--- content blocks of formatted text and modules
+--------------------------------------------------- */
+.anecdote-wysicontent-ndj4ab {
+  > h1, > h2, > h3, > h4 {
+    @include secondary-font;
+  }
+  > h1, > h2, > h3, > h4, > p, > ul, > ol, > blockquote, > pre {
+    @include centered-standard-width;
+    strong {
+      font-weight: 600;
+    }
+    em {
+      font-style: italic;
+    }
+  }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Media embeds
+--- generic styles applied to media such as images, videos, etc
+--------------------------------------------------- */
+.anecdote-intrinsic-embed-n42ha1 {
+  box-shadow: 0 1px 4px -1px rgba( 0, 0, 0, 0.3 );
+  border-top: 1px solid rgba( 0, 0, 0, 0.06 );
+  border-radius: 3px;
+  .anecdote-module-3ba83n.v-size-full-width & {
+    border-radius: 0;
+  }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Modules
+--- generic styles for images, pullquotes, asides, etc
+--------------------------------------------------- */
+.anecdote-module-3ba83n {
+  @include centered-standard-width;
+  &.v-size-full-width > .inner {
+    @include undo-page-padding;
+  }
+  // fix floats so they "attach" to side of content rather than edge of screen
+  // &.v-float-left, .v-float-right {
+  //   @include respond(min, large-monitor) {
+  //     &.v-size-small {
+  //       float: none;
+  //       width: 30rem;
+  //       max-width: 100%;
+  //       margin-left: auto;
+  //       margin-right: auto;
+  //       > .inner {
+  //         float: left;
+  //         width: 12rem;
+  //         margin-right: 2rem;
+  //         margin-left: -15rem;
+  //       }
+  //     }
+  //   }
+  // }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Graphic
+--------------------------------------------------- */
+.anecdote-graphic-dn32ja {
+  @include secondary-font;
+  .caption {
+    @include scope-variation( '.v-size-full-width' ) {
+      @include remify( margin-left margin-right, 1 );
+    }
+  }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Pull Quote
+--------------------------------------------------- */
+.anecdote-pull-quote-sba2ha {
+  @include secondary-font;
 }
 
 /*---------------------------------------------------
 --- Typography
 --------------------------------------------------- */
-%sans-serif {
-  font-family: "museo-sans", Avenir;
-}
 html {
-  font-family: "minion-pro", "Minion Pro";
+  @include primary-font;
   // Size
   font-size: 16px;
   @include respond(min, large-handheld) {
@@ -47,7 +134,32 @@ html {
   }
 }
 select, textarea, input {
-  @extend %sans-serif;
+  @include secondary-font;
+}
+
+/*---------------------------------------------------
+--- Links
+--------------------------------------------------- */
+a {
+  color: #164996;
+  text-decoration: none;
+  &:visited {
+    color: inherit;
+  }
+  &:hover, &:focus {
+    color: #1c52a3;
+    text-decoration: underline;
+  }
+  .anecdote-wysicontent-ndj4ab & {
+    text-decoration: underline;
+    &:visited {
+      color: #3a1b94;
+    }
+    &:hover, &:focus {
+      color: #2967c5;
+      text-decoration: none;
+    }
+  }
 }
 
 /*---------------------------------------------------
@@ -66,87 +178,10 @@ select, textarea, input {
 /*---------------------------------------------------
 --- Layout
 --------------------------------------------------- */
-%centered-standard-width {
-  width: 30rem;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
 .container-s2n3k1 {
   max-width: 1000px;
   margin: 0 auto;
 }
-
-/*---------------------------------------------------
---- Anecdote: Wysicontent
---------------------------------------------------- */
-.anecdote-wysicontent-ndj4ab {
-  > h1, > h2, > h3, > h4 {
-    @extend %sans-serif;
-  }
-  > h1, > h2, > h3, > h4, > p, > ul, > ol, > blockquote, > pre {
-    @extend %centered-standard-width;
-  }
-  strong {
-    font-weight: 600;
-  }
-  em {
-    font-style: italic;
-  }
-}
-
-/*---------------------------------------------------
---- Anecdote: Media embeds
---- generic styles applied to media such as images, videos, etc
---------------------------------------------------- */
-.anecdote-intrinsic-embed-n42ha1 {
-  box-shadow: 0 1px 4px -1px rgba( 0, 0, 0, 0.2 );
-  border-top: 1px solid rgba( 0, 0, 0, 0.035 );
-  border-radius: 3px;
-  .anecdote-module-3ba83n.v-size-full-width & {
-    border-radius: 0;
-  }
-}
-
-/*---------------------------------------------------
---- Anecdote: Modules
---- generic styles for images, pullquotes, asides, etc
---------------------------------------------------- */
-.anecdote-module-3ba83n {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  @extend %centered-standard-width;
-  &.v-size-full-width {
-    width: auto;
-    > .inner {
-      @extend %undo-page-padding;
-    }
-  }
-  &.v-size-big { @include remify( width, 40 ); }
-  &.v-size-medium { @include remify( width, 20 ); }
-  &.v-size-small { @include remify( width, 11 ); }
-}
-
-/*---------------------------------------------------
---- Anecdote: Graphic
---------------------------------------------------- */
-.anecdote-graphic-dn32ja {
-  @extend %sans-serif;
-  @include remify( font-size, 0.85 );
-  color: #555;
-  .caption {
-    @include scope-variation( '.v-size-full-width' ) {
-      @include remify( margin-left margin-right, 1 );
-    }
-  }
-}
-
-/*---------------------------------------------------
---- Anecdote: Pull Quote
---------------------------------------------------- */
-.anecdote-pull-quote-sba2ha {
-  @extend %sans-serif;
-  em {
-    font-style: normal;
-  }
+body {
+  @include add-page-padding;
 }
