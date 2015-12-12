@@ -1,4 +1,5 @@
 require "raconteur"
+require "kramdown"
 require "anecdote/engine"
 
 module Anecdote
