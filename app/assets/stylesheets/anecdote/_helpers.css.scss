@@ -5,15 +5,22 @@ $respond-device-medium-handheld: 350px;
 $respond-device-large-handheld: 430px;
 $respond-device-tablet: 650px;
 $respond-device-laptop: 960px;
-$respond-device-large-monitor: 1250px;
+$respond-device-large-monitor: 1300px;
 $fix-mqs: false !default;
 
+
+
+@mixin scope-variation($sel) {
+  @at-root #{selector-append('.v-size-full-width', &)} {
+    @content;
+  }
+}
 
 
 
 
 @mixin formatted-text( $tmp-size: 1, $tmp-margin-top: 1, $tmp-margin-bottom: 1, $tmp-line-height: 1.65 ) {
-  @include remify( font-size, $tmp-size );
+  font-size: $tmp-size * 1em;
   @if $tmp-line-height != false {
     line-height: ( 1 + ( ( $tmp-line-height - 1 ) / $tmp-size ) ) * 1em;
   }
@@ -61,7 +68,7 @@ $fix-mqs: false !default;
 
 
 // responsive breakpoints
-@mixin respond($type, $device) {
+@mixin respond($type, $device: false) {
   // Determine device width
   $width: 1px;
   @if $device == medium-handheld {
@@ -90,6 +97,10 @@ $fix-mqs: false !default;
       }
     } @else if $type == max {
       @media screen and (max-width: $width) {
+        @content;
+      }
+    } @else if $type == retina {
+      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
         @content;
       }
     }

@@ -1,0 +1,152 @@
+@import 'anecdote/application.css.scss';
+@import 'reset.css.scss';
+
+/*---------------------------------------------------
+--- Page Margins
+--------------------------------------------------- */
+%add-page-padding {
+  @include remify(padding-left padding-right, 1);
+  @include respond(min, tablet) {
+    @include remify(padding-left padding-right, 2);
+  }
+}
+%undo-page-padding {
+  @include remify(margin-left margin-right, -1);
+  @include respond(min, tablet) {
+    @include remify(margin-left margin-right, -2);
+  }
+}
+body {
+  @extend %add-page-padding;
+}
+
+/*---------------------------------------------------
+--- Typography
+--------------------------------------------------- */
+%sans-serif {
+  font-family: "museo-sans", Avenir;
+}
+html {
+  font-family: "minion-pro", "Minion Pro";
+  // Size
+  font-size: 16px;
+  @include respond(min, large-handheld) {
+    font-size: 18px;
+  }
+  @include respond(min, tablet) {
+    font-size: 20px;
+  }
+  @include respond(min, large-monitor) {
+    font-size: 22px;
+  }
+  // Rendering
+  @include respond(retina) {
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+select, textarea, input {
+  @extend %sans-serif;
+}
+
+/*---------------------------------------------------
+--- Mobile fixes
+--------------------------------------------------- */
+// Prevent iOS and IE text size adjust after device orientation change without disabling user zoom
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+// Prevent iOS auto-zoom on form focus without disabling user zoom
+select, textarea, input {
+  font-size: 16px;
+}
+
+/*---------------------------------------------------
+--- Layout
+--------------------------------------------------- */
+%centered-standard-width {
+  width: 30rem;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.container-s2n3k1 {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/*---------------------------------------------------
+--- Anecdote: Wysicontent
+--------------------------------------------------- */
+.anecdote-wysicontent-ndj4ab {
+  > h1, > h2, > h3, > h4 {
+    @extend %sans-serif;
+  }
+  > h1, > h2, > h3, > h4, > p, > ul, > ol, > blockquote, > pre {
+    @extend %centered-standard-width;
+  }
+  strong {
+    font-weight: 600;
+  }
+  em {
+    font-style: italic;
+  }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Media embeds
+--- generic styles applied to media such as images, videos, etc
+--------------------------------------------------- */
+.anecdote-intrinsic-embed-n42ha1 {
+  box-shadow: 0 1px 4px -1px rgba( 0, 0, 0, 0.2 );
+  border-top: 1px solid rgba( 0, 0, 0, 0.035 );
+  border-radius: 3px;
+  .anecdote-module-3ba83n.v-size-full-width & {
+    border-radius: 0;
+  }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Modules
+--- generic styles for images, pullquotes, asides, etc
+--------------------------------------------------- */
+.anecdote-module-3ba83n {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  @extend %centered-standard-width;
+  &.v-size-full-width {
+    width: auto;
+    > .inner {
+      @extend %undo-page-padding;
+    }
+  }
+  &.v-size-big { @include remify( width, 40 ); }
+  &.v-size-medium { @include remify( width, 20 ); }
+  &.v-size-small { @include remify( width, 11 ); }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Graphic
+--------------------------------------------------- */
+.anecdote-graphic-dn32ja {
+  @extend %sans-serif;
+  @include remify( font-size, 0.85 );
+  color: #555;
+  .caption {
+    @include scope-variation( '.v-size-full-width' ) {
+      @include remify( margin-left margin-right, 1 );
+    }
+  }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Pull Quote
+--------------------------------------------------- */
+.anecdote-pull-quote-sba2ha {
+  @extend %sans-serif;
+  em {
+    font-style: normal;
+  }
+}

@@ -23,8 +23,9 @@
     &:after { content: '\201D' }
   }
   > ul, > ol {
+    padding-left: 0;
     > li {
-      padding-left: 1.5em;
+      @include remify( margin-left, 1.5 );
       @include formatted-text( 1, 0.75, 0.75 );
     }
   }
@@ -58,7 +59,7 @@
   }
   @include respond(min, large-handheld) {
     &.v-size-small {
-      @include remify( margin, 0.75, 2 );
+      @include remify( margin, 0.35, 2, 1 );
       &.v-float-right {
         float: right;
         margin-right: 0;
@@ -71,7 +72,7 @@
   }
   @include respond(min, laptop) {
     &.v-size-medium {
-      margin: 0.75rem 2rem;
+      @include remify( margin, 0.35, 2, 1 );
       &.v-float-right {
         float: right;
         margin-right: 0;
@@ -81,6 +82,12 @@
         margin-left: 0;
       }
     }
+  }
+}
+
+.anecdote-graphic-dn32ja {
+  .caption {
+    @include remify( padding-top, 0.5 );
   }
 }
 
