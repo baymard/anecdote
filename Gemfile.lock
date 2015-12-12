@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    anecdote (0.0.1)
+    anecdote (0.0.2)
       raconteur
       rails
       sass-rails
