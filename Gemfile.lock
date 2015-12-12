@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    anecdote (0.0.2)
+    anecdote (0.0.3)
+      kramdown
       raconteur
       rails
       sass-rails
@@ -183,7 +184,6 @@ DEPENDENCIES
   guard
   guard-livereload
   guard-minitest
-  kramdown
   minitest
   paperclip
   rack-livereload
