@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    anecdote (0.0.5)
+    anecdote (0.0.6)
       kramdown
       raconteur
       rails

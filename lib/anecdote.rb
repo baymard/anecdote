@@ -22,15 +22,17 @@ module Anecdote
   def self.init_raconteur
     raconteur.settings.setting_quotes = '$'
     raconteur.processors.register!('graphic', {
-      template: '<div class="{{ klass }}"><div class="inner"><div class="image">{{ image }}</div><div class="caption anecdote-wysicontent-ndj4ab">{{ caption }}</div></div></div>',
       handler: lambda do |settings|
         klass = (['anecdote-graphic-dn32ja'] + module_classes(settings)).flatten.join(' ')
-        image = view_context.content_tag(:div, class: 'anecdote-intrinsic-embed-n42ha1') do
+        contents = []
+        contents << view_context.content_tag(:div, class: 'anecdote-intrinsic-embed-n42ha1') do
           geo = Paperclip::Geometry.from_file(Rails.root.join('app', 'assets', 'images', settings[:assets_path]))
           view_context.content_tag(:div, view_context.image_tag(settings[:assets_path], alt: ''), class: 'inner', style: "padding-bottom: #{geo.height / geo.width * 100}%;")
         end
-        caption = markdown_and_parse(settings[:caption] || "[No caption]")
-        { klass: klass, image: image, caption: caption }
+        if settings[:caption].present?
+          contents << view_context.content_tag(:div, markdown_and_parse(settings[:caption]), class: 'caption anecdote-wysicontent-ndj4ab')
+        end
+        view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), class: klass)
       end
       })
     raconteur.processors.register!('pull-quote', {
