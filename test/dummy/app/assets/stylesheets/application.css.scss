@@ -12,8 +12,7 @@ $remify-baseline: 20;
   font-family: "museo-sans", Avenir;
 }
 @mixin centered-standard-width {
-  width: 30rem;
-  max-width: 100%;
+  max-width: 30rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -91,15 +90,63 @@ $remify-baseline: 20;
   // }
 }
 
+
+/*---------------------------------------------------
+--- Anecdote: Caption
+--------------------------------------------------- */
+.anecdote-caption-ajkd3b {
+  @include secondary-font;
+  .anecdote-wysicontent-ndj4ab > * {
+    margin-left: 0;
+    margin-right: 0;
+    @include remify( max-width, 40 );
+  }
+  .anecdote-module-3ba83n & {
+    @include scope-variation( '.v-mood-negative' ) {
+      > .inner {
+        @include remify( padding-left, 1.15 );
+        position: relative;
+        &:before {
+          position: absolute;
+          left: 0;
+          @include remify( width, 1 );
+          text-align: center;
+          top: 0.25em;
+          content: '\00F7'
+        }
+      }
+    }
+    @include scope-variation( '.v-mood-positive' ) {
+      > .inner {
+        @include remify( padding-left, 1.15 );
+        position: relative;
+        &:before {
+          position: absolute;
+          left: 0;
+          @include remify( width, 1 );
+          text-align: center;
+          top: 0.25em;
+          content: '\002B'
+        }
+      }
+    }
+  }
+}
+
 /*---------------------------------------------------
 --- Anecdote: Graphic
 --------------------------------------------------- */
 .anecdote-graphic-dn32ja {
-  @include secondary-font;
-  .caption {
+  .anecdote-caption-ajkd3b {
     @include scope-variation( '.v-size-full-width' ) {
       @include remify( margin-left margin-right, 1 );
     }
+  }
+}
+
+.anecdote-gallery-dn2bak {
+  @include scope-variation( '.v-size-full-width' ) {
+    @include add-page-padding;
   }
 }
 

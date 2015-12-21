@@ -10,7 +10,7 @@ $fix-mqs: false !default;
 
 
 @mixin scope-variation($sel) {
-  @at-root #{selector-append('.v-size-full-width', &)} {
+  @at-root #{selector-append($sel, &)} {
     @content;
   }
 }

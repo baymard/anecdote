@@ -8,6 +8,11 @@ We considered naming this article "the sort type all users want but zero sites o
 
 During our research study on product list usability the test subjects repeatedly sought out these kinds of category-specific sort types – however, to no avail since seemingly **zero sites** offer them. Even after [benchmarking](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) the product lists of 50 major e-commerce sites we have yet to find a site that truly offer category-specific sorting.
 
+{{% gallery: size=big %}}
+  {{ graphic: assets-path=category-specific-sorting-02-bestbuy.jpg + mood=positive + caption=$A mockup we've created of what category-specific sort types could look like at BestBuy. Here the three last sorting options – for TV screen size, refresh rate, and display depth – are available exclusively within the TV category while the other sort types are available site-wide.$ }}
+  {{ graphic: assets-path=category-specific-sorting-08-faceted-sorting.jpg + mood=negative + caption=$An example of how things can go really wrong.$ }}
+{{% end %}}
+
 In this article we'll outline our research findings on why **category-specific sorting** is so important to the user's product finding abilities, and how it can be implemented.
 
 {{ graphic: float=left + size=small + assets-path=category-specific-sorting-02-bestbuy.jpg + caption=$A mockup we've created of what category-specific sort types could look like at BestBuy. Here the three last sorting options – for TV screen size, refresh rate, and display depth – are available exclusively within the TV category while the other sort types are available site-wide.$ }}

@@ -83,20 +83,20 @@
 .anecdote-module-3ba83n {
   @include remify( margin-top margin-bottom, 1 );
   @include margin-horizontal( auto );
-  max-width: 100%;
 
   // sizes
+  @include remify( max-width, 30 );
   &.v-size-small {
-    @include remify( width, 12 );
+    @include remify( max-width, 12 );
   }
   &.v-size-medium {
-    @include remify( width, 20 );
+    @include remify( max-width, 20 );
   }
   &.v-size-big {
-    @include remify( width, 40 );
+    @include remify( max-width, 40 );
   }
   &.v-size-full-width {
-    width: auto;
+    max-width: 100%;
   }
 
   // positioning
@@ -131,14 +131,60 @@
   }
 }
 
+
+/*---------------------------------------------------
+--- Anecdote: Caption
+--------------------------------------------------- */
+.anecdote-caption-ajkd3b {
+  font-size: 0.8em;
+  color: #555;
+}
+
 /*---------------------------------------------------
 --- Anecdote: Graphic
 --------------------------------------------------- */
 .anecdote-graphic-dn32ja {
-  @include remify( font-size, 0.85 );
-  color: #555;
-  .caption {
+  .anecdote-caption-ajkd3b {
     @include remify( padding-top, 0.5 );
+  }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Gallery
+--------------------------------------------------- */
+.anecdote-gallery-dn2bak {
+  .anecdote-caption-ajkd3b {
+    @include remify( padding-top, 0.5 );
+  }
+  .anecdote-graphic-dn32ja {
+    margin-bottom: 0;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  @include respond(min, tablet) {
+    .flexbox & {
+      .content {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        .anecdote-graphic-dn32ja {
+          -webkit-flex: 1 1 auto;
+          -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+          max-width: 100%;
+          @include remify( margin-left, 1 );
+          margin-top: 0;
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -160,12 +206,12 @@
   &.v-float-right, &.v-float-left {
     @include respond(max, large-handheld) {
       &.v-size-small {
-        width: 100%;
+        max-width: 100%;
       }
     }
     @include respond(max, laptop) {
       &.v-size-medium {
-        width: 100%;
+        max-width: 100%;
       }
     }
   }
