@@ -12,6 +12,10 @@ module Anecdote
     @raconteur ||= ::Raconteur.new
   end
 
+  def self.inline_js
+    view_context.content_tag(:script, Rails.application.assets.find_asset('anecdote/application.js').to_s.html_safe)
+  end
+
   def self.init_raconteur
     raconteur.settings.setting_quotes = '$'
     raconteur.processors.register!('graphic', {

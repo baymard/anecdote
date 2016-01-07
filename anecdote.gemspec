@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "uglifier"
   s.add_dependency "raconteur"
   s.add_dependency "kramdown"
-  
+
   s.add_development_dependency "byebug"
   s.add_development_dependency "minitest"
   s.add_development_dependency "guard"
