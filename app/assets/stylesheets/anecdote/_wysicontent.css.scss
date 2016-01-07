@@ -102,6 +102,7 @@
   // positioning
   &.v-float-right, &.v-float-left {
     @include margin-horizontal( auto );
+    width: 100%;
   }
   @include respond(min, large-handheld) {
     &.v-size-small {
