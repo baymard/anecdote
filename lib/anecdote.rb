@@ -18,6 +18,7 @@ module Anecdote
 
   def self.init_raconteur
     raconteur.settings.setting_quotes = '$'
+
     raconteur.processors.register!('graphic', {
       handler: lambda do |settings|
         klass = (['anecdote-graphic-dn32ja'] + module_classes(settings)).flatten.join(' ')
@@ -36,18 +37,72 @@ module Anecdote
         view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), class: klass)
       end
       })
+
     raconteur.processors.register!('gallery', {
       handler: lambda do |settings|
         klass = (['anecdote-gallery-dn2bak'] + module_classes(settings)).flatten.join(' ')
-        contents = []
         graphics = settings[:_yield_].html_safe
-        index = 0
-        total_width = settings[:_graphics_].sum { |geo| geo.width / geo.height }
-        graphics.gsub!(/class="[^"]*?anecdote-graphic-dn32ja[\s|"]/mi) do |match|
-          width = (settings[:_graphics_][index].width / settings[:_graphics_][index].height) / total_width
-          index += 1
-          "style=\"-webkit-flex-basis:#{width * 100}%;-moz-flex-basis:#{width * 100}%;flex-basis:#{width * 100}%;\" #{match}".html_safe
+
+        # handle scaling
+        flexes = []
+        if settings[:scale_by] == 'relative-width-bottom-alignment'
+          # images scaled based on their relative width with bottom alignment
+          total_width = settings[:_graphics_].sum(&:width)
+          settings[:_graphics_].each do |graphic|
+            flex = {
+              width: graphic.width / total_width,
+              graphic: graphic,
+              ratio: graphic.width / graphic.height,
+              gfx_height_pad: graphic.height / graphic.width
+            }
+            flex[:width_ratio_balance] = flex[:width] / flex[:ratio]
+            flexes << flex
+          end
+          tallest = flexes.sort_by { |k| k[:width_ratio_balance] }.last
+          flexes.map do |flex|
+            flex[:faux] = flex[:width_ratio_balance] / tallest[:width_ratio_balance]
+            flex[:gfx_height_pad_faux] = flex[:gfx_height_pad] / flex[:faux]
+            flex[:top_offset] = flex[:gfx_height_pad_faux] - flex[:gfx_height_pad]
+          end
+          index = 0
+          graphics.gsub!('<div class="anecdote-intrinsic-embed-n42ha1">') do |match|
+            flex = flexes[index]
+            index += 1
+            (view_context.content_tag(:div, '', class: 'anecdote-gallery-offset-dn2bak', style: "padding-top: #{flex[:top_offset] * 100}%;").html_safe + match.html_safe).html_safe
+          end
+          # graphics.gsub!(/anecdote-intrinsic-embed-n42ha1.*?padding-bottom:\s*([\d|\.]*)/mi) do |match|
+          #   flex = flexes[index]
+          #   index += 1
+          #   match.sub(/[\d|\.]*$/, (flex[:gfx_height_pad_faux] * 100).to_s).html_safe
+          # end
+        elsif settings[:scale_by] == 'relative-width'
+          # images scaled based on their relative width
+          total_width = settings[:_graphics_].sum(&:width)
+          settings[:_graphics_].each do |graphic|
+            flexes << { width: graphic.width / total_width, graphic: graphic }
+          end
+        else
+          # images scaled to equal height
+          total_ratio = settings[:_graphics_].sum { |geo| geo.width / geo.height }
+          settings[:_graphics_].each do |graphic|
+            flexes << { width: (graphic.width / graphic.height) / total_ratio, graphic: graphic }
+          end
         end
+        index = 0
+        graphics.gsub!(/class="[^"]*?anecdote-graphic-dn32ja[\s|"]/mi) do |match|
+          flex = flexes[index]
+          index += 1
+          styles = []
+          if flex[:width].present?
+            styles << "-webkit-flex-basis:#{flex[:width] * 100}%"
+            styles << "-moz-flex-basis:#{flex[:width] * 100}%"
+            styles << "flex-basis:#{flex[:width] * 100}%"
+          end
+          "style=\"#{styles.join(';')}\" #{match}".html_safe
+        end
+
+        # build HTML output
+        contents = []
         contents << view_context.content_tag(:div, graphics.html_safe, class: 'content')
         if settings[:caption].present?
           contents << view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:caption]), class: 'inner anecdote-wysicontent-ndj4ab'), class: 'anecdote-caption-ajkd3b')
@@ -55,6 +110,7 @@ module Anecdote
         view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), class: klass)
       end
       })
+
     raconteur.processors.register!('pull-quote', {
       handler: lambda do |settings|
         klass = (['anecdote-pull-quote-sba2ha'] + module_classes(settings)).flatten.join(' ')

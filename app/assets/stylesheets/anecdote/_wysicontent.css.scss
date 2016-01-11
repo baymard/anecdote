@@ -163,9 +163,15 @@
       margin-top: 0;
     }
   }
+  .anecdote-gallery-offset-dn2bak {
+    display: none;
+  }
 
   @include respond(min, tablet) {
     .flexbox & {
+      .anecdote-gallery-offset-dn2bak {
+        display: block;
+      }
       .content {
         display: -ms-flexbox;
         display: -webkit-flex;
