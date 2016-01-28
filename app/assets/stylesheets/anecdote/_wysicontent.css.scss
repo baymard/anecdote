@@ -106,7 +106,9 @@
   }
   @include respond(min, large-handheld) {
     &.v-size-small {
-      @include remify( margin, 0.35, 2, 1 );
+      &.v-float-right, &.v-float-left {
+        @include remify( margin, 0.35, 2, 1 );
+      }
       &.v-float-right {
         float: right;
         margin-right: 0;
@@ -119,7 +121,9 @@
   }
   @include respond(min, laptop) {
     &.v-size-medium {
-      @include remify( margin, 0.35, 2, 1 );
+      &.v-float-right, &.v-float-left {
+        @include remify( margin, 0.35, 2, 1 );
+      }
       &.v-float-right {
         float: right;
         margin-right: 0;

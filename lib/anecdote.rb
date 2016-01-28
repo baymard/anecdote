@@ -24,12 +24,20 @@ module Anecdote
         klass = (['anecdote-graphic-dn32ja'] + module_classes(settings)).flatten.join(' ')
         contents = []
         contents << view_context.content_tag(:div, class: 'anecdote-intrinsic-embed-n42ha1') do
-          geo = Paperclip::Geometry.from_file(Rails.root.join('app', 'assets', 'images', settings[:assets_path]))
+          if settings[:assets_path]
+            image_url = settings[:assets_path]
+            paperclip_geo = Paperclip::Geometry.from_file(Rails.root.join('app', 'assets', 'images', settings[:assets_path]))
+            geo = { width: paperclip_geo.width, height: paperclip_geo.height }
+          elsif settings[:image_url]
+            image_url = settings[:image_url]
+            dimensions = settings[:image_dimensions].split('x').map(&:to_f)
+            geo = { width: dimensions.first, height: dimensions.last }
+          end
           if settings[:_scope_].present? && settings[:_scope_][:processor].tag == 'gallery'
             settings[:_scope_][:settings][:_graphics_] ||= []
             settings[:_scope_][:settings][:_graphics_] << geo
           end
-          view_context.content_tag(:div, view_context.image_tag(settings[:assets_path], alt: ''), class: 'inner', style: "padding-bottom: #{geo.height / geo.width * 100}%;")
+          view_context.content_tag(:div, view_context.image_tag(image_url, alt: ''), class: 'inner', style: "padding-bottom: #{geo[:height] / geo[:width] * 100}%;")
         end
         if settings[:caption].present?
           contents << view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:caption]), class: 'inner anecdote-wysicontent-ndj4ab'), class: 'anecdote-caption-ajkd3b')
@@ -47,13 +55,13 @@ module Anecdote
         flexes = []
         if settings[:scale_by] == 'relative-width-bottom-alignment'
           # images scaled based on their relative width with bottom alignment
-          total_width = settings[:_graphics_].sum(&:width)
+          total_width = settings[:_graphics_].sum { |hsh| hsh[:width]}
           settings[:_graphics_].each do |graphic|
             flex = {
-              width: graphic.width / total_width,
+              width: graphic[:width] / total_width,
               graphic: graphic,
-              ratio: graphic.width / graphic.height,
-              gfx_height_pad: graphic.height / graphic.width
+              ratio: graphic[:width] / graphic[:height],
+              gfx_height_pad: graphic[:height] / graphic[:width]
             }
             flex[:width_ratio_balance] = flex[:width] / flex[:ratio]
             flexes << flex
@@ -77,15 +85,15 @@ module Anecdote
           # end
         elsif settings[:scale_by] == 'relative-width'
           # images scaled based on their relative width
-          total_width = settings[:_graphics_].sum(&:width)
+          total_width = settings[:_graphics_].sum { |hsh| hsh[:width]}
           settings[:_graphics_].each do |graphic|
-            flexes << { width: graphic.width / total_width, graphic: graphic }
+            flexes << { width: graphic[:width] / total_width, graphic: graphic }
           end
         else
           # images scaled to equal height
-          total_ratio = settings[:_graphics_].sum { |geo| geo.width / geo.height }
+          total_ratio = settings[:_graphics_].sum { |geo| geo[:width] / geo[:height] }
           settings[:_graphics_].each do |graphic|
-            flexes << { width: (graphic.width / graphic.height) / total_ratio, graphic: graphic }
+            flexes << { width: (graphic[:width] / graphic[:height]) / total_ratio, graphic: graphic }
           end
         end
         index = 0
