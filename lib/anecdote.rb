@@ -23,7 +23,7 @@ module Anecdote
       handler: lambda do |settings|
         klass = (['anecdote-graphic-dn32ja'] + module_classes(settings)).flatten.join(' ')
         contents = []
-        contents << view_context.content_tag(:div, class: 'anecdote-intrinsic-embed-n42ha1') do
+        contents << view_context.content_tag((settings[:href].present? ? :a : :div), (settings[:href].present? ? { href: settings[:href], title: settings[:href_title] } : {}).merge({ class: 'anecdote-intrinsic-embed-n42ha1' })) do
           if settings[:assets_path]
             image_url = settings[:assets_path]
             paperclip_geo = Paperclip::Geometry.from_file(Rails.root.join('app', 'assets', 'images', settings[:assets_path]))
