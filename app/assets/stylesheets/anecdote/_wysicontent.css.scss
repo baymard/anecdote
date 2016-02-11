@@ -105,36 +105,31 @@
     @include margin-horizontal( auto );
     width: 100%;
   }
-  @include respond(min, large-handheld) {
-    &.v-size-small {
-      &.v-float-right, &.v-float-left {
-        @include remify( margin, 0.35, 2, 1 );
-      }
-      &.v-float-right {
-        float: right;
-        margin-right: 0;
-      }
-      &.v-float-left {
-        float: left;
-        margin-left: 0;
+
+  @mixin float-module-3ba83n {
+    &.v-float-right, &.v-float-left {
+      @include remify( margin, 0.35, 2, 1 );
+    }
+    &.v-float-right {
+      float: right;
+      margin-right: 0;
+    }
+    &.v-float-left {
+      float: left;
+      margin-left: 0;
+    }
+  }
+  &.v-float-from-always {
+    @include float-module-3ba83n;
+  }
+  @each $breakpoint-name, $breakpoint-px in $respond-devices {
+    &.v-float-from-#{$breakpoint-name} {
+      @include respond(min, $breakpoint-name) {
+        @include float-module-3ba83n;
       }
     }
   }
-  @include respond(min, laptop) {
-    &.v-size-medium {
-      &.v-float-right, &.v-float-left {
-        @include remify( margin, 0.35, 2, 1 );
-      }
-      &.v-float-right {
-        float: right;
-        margin-right: 0;
-      }
-      &.v-float-left {
-        float: left;
-        margin-left: 0;
-      }
-    }
-  }
+  
 }
 
 
@@ -172,7 +167,8 @@
     display: none;
   }
 
-  @include respond(min, tablet) {
+
+  @mixin flow-gallery-dn2bak {
     .flexbox & {
       .anecdote-gallery-offset-dn2bak {
         display: block;
@@ -198,6 +194,17 @@
       }
     }
   }
+  &.v-flow-from-always {
+    @include flow-gallery-dn2bak;
+  }
+  @each $breakpoint-name, $breakpoint-px in $respond-devices {
+    &.v-flow-from-#{$breakpoint-name} {
+      @include respond(min, $breakpoint-name) {
+        @include flow-gallery-dn2bak;
+      }
+    }
+  }
+
 }
 
 /*---------------------------------------------------

@@ -1,10 +1,17 @@
 
 $remify-baseline: 16 !default;
-$respond-device-medium-handheld: 350px;
-$respond-device-large-handheld: 450px;
-$respond-device-tablet: 650px;
-$respond-device-laptop: 960px;
-$respond-device-large-monitor: 1300px;
+$respond-devices: (
+  medium-handheld: 350px,
+  large-handheld: 450px,
+  tablet: 650px,
+  laptop: 960px,
+  large-monitor: 1300px
+);
+$respond-device-medium-handheld: map-get($respond-devices, medium-handheld);
+$respond-device-large-handheld: map-get($respond-devices, large-handheld);
+$respond-device-tablet: map-get($respond-devices, tablet);
+$respond-device-laptop: map-get($respond-devices, laptop);
+$respond-device-large-monitor: map-get($respond-devices, large-monitor);
 $fix-mqs: false !default;
 
 
