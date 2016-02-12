@@ -129,7 +129,7 @@
       }
     }
   }
-  
+
 }
 
 
@@ -163,30 +163,55 @@
       margin-top: 0;
     }
   }
-  .anecdote-gallery-offset-dn2bak {
+  .flexbox &.anecdote-flex-module-a4j2aj .flex-scope > .anecdote-module-3ba83n {
+    @include remify( margin-left, 1 );
+  }
+}
+
+
+.anecdote-flex-module-a4j2aj {
+  .anecdote-flex-offset-a4j2aj {
     display: none;
   }
 
-
-  @mixin flow-gallery-dn2bak {
+  @mixin flow-modules-an32ka {
     .flexbox & {
-      .anecdote-gallery-offset-dn2bak {
+      .anecdote-flex-offset-a4j2aj {
         display: block;
       }
-      .content {
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        .anecdote-graphic-dn32ja {
-          -webkit-flex: 1 1 auto;
-          -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-          max-width: 100%;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      > .anecdote-module-3ba83n {
+        -webkit-flex: 1 1 auto;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        max-width: 100%;
+        margin-top: 0;
+      }
+    }
+    // TODO: support for nested flex modules with custom gutter spacing!
+    > .anecdote-module-3ba83n {
+      .flexbox & {
+        @include remify( margin-left, 2.5 );
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+      @include scope-variation( '.v-gutter-spacing-small' ) {
+        .flexbox & {
           @include remify( margin-left, 1 );
-          margin-top: 0;
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+      }
+      @include scope-variation( '.v-gutter-spacing-large' ) {
+        .flexbox & {
+          @include remify( margin-left, 4 );
           &:first-child {
             margin-left: 0;
           }
@@ -195,12 +220,12 @@
     }
   }
   &.v-flow-from-always {
-    @include flow-gallery-dn2bak;
+    @include flow-modules-an32ka;
   }
   @each $breakpoint-name, $breakpoint-px in $respond-devices {
     &.v-flow-from-#{$breakpoint-name} {
       @include respond(min, $breakpoint-name) {
-        @include flow-gallery-dn2bak;
+        @include flow-modules-an32ka;
       }
     }
   }

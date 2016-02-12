@@ -52,96 +52,85 @@ module Anecdote
 
     raconteur.processors.register!('gallery', {
       handler: lambda do |settings|
-        klass = (['anecdote-gallery-dn2bak'] + module_classes(settings)).flatten.join(' ')
+        klasses = ['anecdote-gallery-dn2bak']
+        klasses += module_classes(settings)
         graphics = settings[:_yield_].html_safe
 
         # handle scaling
         flexes = []
-        if settings[:scale_by] == 'relative-width-bottom-alignment'
-          # images scaled based on their relative width with bottom alignment
-          total_width = settings[:_graphics_].sum { |hsh| hsh[:width]}
-          settings[:_graphics_].each do |graphic|
-            flex = {
-              width: graphic[:width] / total_width,
-              graphic: graphic,
-              ratio: graphic[:width] / graphic[:height],
-              gfx_height_pad: graphic[:height] / graphic[:width]
-            }
-            flex[:width_ratio_balance] = flex[:width] / flex[:ratio]
-            flexes << flex
-          end
-          tallest = flexes.sort_by { |k| k[:width_ratio_balance] }.last
-          flexes.map do |flex|
-            flex[:faux] = flex[:width_ratio_balance] / tallest[:width_ratio_balance]
-            flex[:gfx_height_pad_faux] = flex[:gfx_height_pad] / flex[:faux]
-            flex[:top_offset] = flex[:gfx_height_pad_faux] - flex[:gfx_height_pad]
-          end
-          index = 0
-          graphics.gsub!('<div class="anecdote-intrinsic-embed-n42ha1">') do |match|
-            flex = flexes[index]
-            index += 1
-            (view_context.content_tag(:div, '', class: 'anecdote-gallery-offset-dn2bak', style: "padding-top: #{flex[:top_offset] * 100}%;").html_safe + match.html_safe).html_safe
-          end
-          # graphics.gsub!(/anecdote-intrinsic-embed-n42ha1.*?padding-bottom:\s*([\d|\.]*)/mi) do |match|
-          #   flex = flexes[index]
-          #   index += 1
-          #   match.sub(/[\d|\.]*$/, (flex[:gfx_height_pad_faux] * 100).to_s).html_safe
-          # end
-        elsif settings[:scale_by] == 'relative-width'
-          # images scaled based on their relative width
-          total_width = settings[:_graphics_].sum { |hsh| hsh[:width]}
-          settings[:_graphics_].each do |graphic|
-            flexes << { width: graphic[:width] / total_width, graphic: graphic }
-          end
+        if settings[:flexes]
+          flexes = parse_custom_flexes(settings)
         else
-          # images scaled to equal height
-          total_ratio = settings[:_graphics_].sum { |geo| geo[:width] / geo[:height] }
-          settings[:_graphics_].each do |graphic|
-            flexes << { width: (graphic[:width] / graphic[:height]) / total_ratio, graphic: graphic }
-          end
-        end
-        index = 0
-        graphics.gsub!(/class="[^"]*?anecdote-graphic-dn32ja[\s|"]/mi) do |match|
-          flex = flexes[index]
-          index += 1
-          styles = []
-          if flex[:width].present?
-            styles << "-webkit-flex-basis:#{flex[:width] * 100}%"
-            styles << "-moz-flex-basis:#{flex[:width] * 100}%"
-            styles << "flex-basis:#{flex[:width] * 100}%"
-          end
-          "style=\"#{styles.join(';')}\" #{match}".html_safe
-        end
-
-        # flow-points
-        flow_from_klass = case settings[:flow_from]
-        when 'always' then 'v-flow-from-always'
-        when 'medium-handheld' then 'v-flow-from-medium-handheld'
-        when 'large-handheld' then 'v-flow-from-large-handheld'
-        when 'tablet' then 'v-flow-from-tablet'
-        when 'laptop' then 'v-flow-from-laptop'
-        when 'large-monitor' then 'v-flow-from-large-monitor'
-        else
-          if settings[:size].present?
-            case settings[:size]
-            when 'small' then 'v-flow-from-medium-handheld'
-            when 'medium' then 'v-flow-from-large-handheld'
-            when 'big' then 'v-flow-from-tablet'
-            when 'full-width' then 'v-flow-from-tablet'
+          if settings[:scale_by] == 'relative-width-bottom-alignment'
+            # images scaled based on their relative width with bottom alignment
+            total_width = settings[:_graphics_].sum { |hsh| hsh[:width]}
+            settings[:_graphics_].each do |graphic|
+              flex = {
+                width: graphic[:width] / total_width,
+                graphic: graphic,
+                ratio: graphic[:width] / graphic[:height],
+                gfx_height_pad: graphic[:height] / graphic[:width]
+              }
+              flex[:width_ratio_balance] = flex[:width] / flex[:ratio]
+              flexes << flex
+            end
+            tallest = flexes.sort_by { |k| k[:width_ratio_balance] }.last
+            flexes.map do |flex|
+              flex[:faux] = flex[:width_ratio_balance] / tallest[:width_ratio_balance]
+              flex[:gfx_height_pad_faux] = flex[:gfx_height_pad] / flex[:faux]
+              flex[:top_offset] = flex[:gfx_height_pad_faux] - flex[:gfx_height_pad]
+            end
+            index = 0
+            graphics.gsub!('<div class="anecdote-intrinsic-embed-n42ha1">') do |match|
+              flex = flexes[index]
+              index += 1
+              (view_context.content_tag(:div, '', class: 'anecdote-flex-offset-a4j2aj', style: "padding-top: #{flex[:top_offset] * 100}%;").html_safe + match.html_safe).html_safe
+            end
+            # graphics.gsub!(/anecdote-intrinsic-embed-n42ha1.*?padding-bottom:\s*([\d|\.]*)/mi) do |match|
+            #   flex = flexes[index]
+            #   index += 1
+            #   match.sub(/[\d|\.]*$/, (flex[:gfx_height_pad_faux] * 100).to_s).html_safe
+            # end
+          elsif settings[:scale_by] == 'relative-width'
+            # images scaled based on their relative width
+            total_width = settings[:_graphics_].sum { |hsh| hsh[:width]}
+            settings[:_graphics_].each do |graphic|
+              flexes << { width: graphic[:width] / total_width, graphic: graphic }
             end
           else
-            'v-flow-from-tablet' # default
+            # images scaled to equal height
+            total_ratio = settings[:_graphics_].sum { |geo| geo[:width] / geo[:height] }
+            settings[:_graphics_].each do |graphic|
+              flexes << { width: (graphic[:width] / graphic[:height]) / total_ratio, graphic: graphic }
+            end
           end
         end
-        klass += " #{flow_from_klass}"
+        graphics = insert_flex_basis_styles(graphics, flexes)
 
         # build HTML output
         contents = []
-        contents << view_context.content_tag(:div, graphics.html_safe, class: 'content')
+        settings[:gutter_spacing] = 'small' if settings[:gutter_spacing].blank?
+        contents << view_context.content_tag(:div, graphics.html_safe, class: (['content'] + flex_classes(settings)).flatten.join(' '))
         if settings[:caption].present?
           contents << view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:caption]), class: 'inner anecdote-wysicontent-ndj4ab'), class: 'anecdote-caption-ajkd3b')
         end
-        view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), class: klass)
+        view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), class: klasses.flatten.join(' '))
+      end
+      })
+
+    raconteur.processors.register!('columns', {
+      handler: lambda do |settings|
+        klasses = ['anecdote-columns-nab3a2']
+        klasses += module_classes(settings)
+        columns = insert_flex_basis_styles(settings[:_yield_].html_safe, parse_custom_flexes(settings))
+        view_context.content_tag(:div, view_context.content_tag(:div, columns.html_safe, class: (['inner'] + flex_classes(settings)).flatten.join(' ')), class: klasses.flatten.join(' '))
+      end
+      })
+
+    raconteur.processors.register!('anecdote', {
+      handler: lambda do |settings|
+        klass = (['anecdote-inception-ab2a8j'] + module_classes(settings)).flatten.join(' ')
+        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:_yield_]), class: 'anecdote-wysicontent-ndj4ab inner'), class: klass)
       end
       })
 
@@ -151,6 +140,60 @@ module Anecdote
         view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:text]), class: 'inner'), class: klass)
       end
       })
+  end
+
+
+  def self.parse_custom_flexes(settings)
+    ratios = settings[:flexes].split(':').map(&:to_i)
+    sum = ratios.inject(&:+)
+    flexes = ratios.map { |ratio| { width: ratio.to_f / sum } }
+  end
+  def self.insert_flex_basis_styles(html_content, flexes)
+    index = 0
+    doc = Nokogiri::HTML::DocumentFragment.parse(html_content)
+    doc.elements.each do |element|
+      if element.attributes['class'].present? && element.attributes['class'].value.split(' ').include?('anecdote-module-3ba83n')
+        flex = flexes[index]
+        index += 1
+        styles = []
+        if flex[:width].present?
+          styles << "-webkit-flex-basis:#{flex[:width] * 100}%"
+          styles << "-moz-flex-basis:#{flex[:width] * 100}%"
+          styles << "flex-basis:#{flex[:width] * 100}%"
+        end
+        element.set_attribute('style', styles.join(';'))
+      end
+    end
+    doc.to_html
+  end
+  def self.flex_classes(settings)
+    klasses = %w(anecdote-flex-module-a4j2aj)
+    # custom gutter spacing
+    klasses << case settings[:gutter_spacing]
+    when 'small' then 'v-gutter-spacing-small'
+    when 'large' then 'v-gutter-spacing-large'
+    end
+    # when to wrap
+    klasses << case settings[:flow_from]
+    when 'always' then 'v-flow-from-always'
+    when 'medium-handheld' then 'v-flow-from-medium-handheld'
+    when 'large-handheld' then 'v-flow-from-large-handheld'
+    when 'tablet' then 'v-flow-from-tablet'
+    when 'laptop' then 'v-flow-from-laptop'
+    when 'large-monitor' then 'v-flow-from-large-monitor'
+    else
+      if settings[:size].present?
+        case settings[:size]
+        when 'small' then 'v-flow-from-medium-handheld'
+        when 'medium' then 'v-flow-from-large-handheld'
+        when 'big' then 'v-flow-from-tablet'
+        when 'full-width' then 'v-flow-from-tablet'
+        end
+      else
+        'v-flow-from-tablet' # default
+      end
+    end
+    klasses
   end
 
   def self.module_classes(settings)
