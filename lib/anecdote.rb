@@ -140,6 +140,32 @@ module Anecdote
         view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:text]), class: 'inner'), class: klass)
       end
       })
+
+    raconteur.processors.register!('horizontal-line', {
+      handler: lambda do |settings|
+        klasses = ['anecdote-horizontal-line-asj31a']
+        klasses += module_classes(settings)
+        klasses << case settings[:weight]
+        when 'light' then 'v-light'
+        when 'notable' then 'v-notable'
+        when 'heavy' then 'v-heavy'
+        end
+        view_context.content_tag(:div, view_context.content_tag(:hr), class: klasses.flatten.join(' '))
+      end
+      })
+
+    raconteur.processors.register!('spacing', {
+      handler: lambda do |settings|
+        klasses = ['anecdote-spacing-an4a2q']
+        klasses << case settings[:size]
+        when 'tiny' then 'v-tiny'
+        when 'small' then 'v-small'
+        when 'big' then 'v-big'
+        when 'mega' then 'v-mega'
+        end
+        view_context.content_tag(:div, nil, class: klasses.flatten.join(' '))
+      end
+      })
   end
 
 
@@ -198,6 +224,16 @@ module Anecdote
 
   def self.module_classes(settings)
     klasses = %w(anecdote-module-3ba83n)
+    klasses << case settings[:font_family]
+    when 'primary' then 'anecdote-primary-font-a3a8fb'
+    when 'secondary' then 'anecdote-secondary-font-a3a8fb'
+    end
+    klasses << case settings[:font_size]
+    when 'tiny' then 'anecdote-tiny-text-size-an43ja'
+    when 'small' then 'anecdote-small-text-size-an43ja'
+    when 'normal' then 'anecdote-normal-text-size-an43ja'
+    when 'large' then 'anecdote-large-text-size-an43ja'
+    end
     if settings[:size].present?
       klasses << case settings[:size]
       when 'small' then 'v-size-small'
@@ -236,7 +272,7 @@ module Anecdote
       when 'negative' then 'v-mood-negative'
       end
     end
-    klasses
+    klasses.compact
   end
 
 

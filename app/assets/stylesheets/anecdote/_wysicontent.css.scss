@@ -238,7 +238,7 @@
 .anecdote-pull-quote-sba2ha {
   @include formatted-text( 1.3, false, false );
   color: #333;
-  border: 2px solid #eee;
+  border: 2px solid $color-strokes;
   border-left: none;
   border-right: none;
   font-style: italic;
@@ -259,4 +259,75 @@
       }
     }
   }
+}
+
+
+
+/*---------------------------------------------------
+--- Anecdote: Spacing & Horizontal Lines
+--------------------------------------------------- */
+
+.anecdote-spacing-an4a2q {
+  height: 1px;
+  width: 100%;
+  display: block;
+  @include remify( margin-top margin-bottom, 1.2 );
+  &.v-tiny {
+    @include remify( margin-top margin-bottom, 0.15 );
+  }
+  &.v-small {
+    @include remify( margin-top margin-bottom, 0.6 );
+  }
+  &.v-big {
+    @include remify( margin-top margin-bottom, 2.5 );
+  }
+  &.v-mega {
+    @include remify( margin-top margin-bottom, 4 );
+  }
+}
+
+.anecdote-horizontal-line-asj31a {
+  width: 100%;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0;
+
+  height: 1px;
+  background-color: $color-strokes;
+  &.v-light {
+    background-color: lighten($color-strokes, 4%);
+  }
+  &.v-notable {
+    height: 2px;
+  }
+  &.v-heavy {
+    height: 5px;
+  }
+  hr {
+    display: none;
+  }
+}
+
+/*---------------------------------------------------
+--- Anecdote: Font Styles & Sizes
+--------------------------------------------------- */
+
+.anecdote-primary-font-a3a8fb {
+
+}
+.anecdote-secondary-font-a3a8fb {
+
+}
+
+.anecdote-tiny-text-size-an43ja {
+  @include remify( font-size, 0.7 );
+}
+.anecdote-small-text-size-an43ja {
+  @include remify( font-size, 0.85 );
+}
+.anecdote-normal-text-size-an43ja {
+  @include remify( font-size, 1 );
+}
+.anecdote-large-text-size-an43ja {
+  @include remify( font-size, 1.15 );
 }

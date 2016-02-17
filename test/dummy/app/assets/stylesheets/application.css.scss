@@ -160,6 +160,18 @@ $remify-baseline: 20;
 }
 
 /*---------------------------------------------------
+--- Anecdote: Font Styles & Sizes
+--------------------------------------------------- */
+
+.anecdote-primary-font-a3a8fb {
+  @include primary-font;
+}
+.anecdote-secondary-font-a3a8fb {
+  @include secondary-font;
+}
+
+
+/*---------------------------------------------------
 --- Typography
 --------------------------------------------------- */
 html {

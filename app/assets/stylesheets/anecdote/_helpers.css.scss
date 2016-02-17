@@ -13,6 +13,7 @@ $respond-device-tablet: map-get($respond-devices, tablet);
 $respond-device-laptop: map-get($respond-devices, laptop);
 $respond-device-large-monitor: map-get($respond-devices, large-monitor);
 $fix-mqs: false !default;
+$color-strokes: #e9e9e9 !default;
 
 
 

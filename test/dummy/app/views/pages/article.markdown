@@ -1,18 +1,5 @@
 # Category-Specific Sorting: A New Way to Sort Products
 
-{{% columns: size=big + flexes=1:1 %}}
-  {{% anecdote %}}
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-{{ graphic: href=//baymard.com + href-title=$Clicking this image will take you to Baymard.com!$ + assets-path=category-specific-sorting-01-rei-mock-up.jpg + size=big + caption=$This is the 3rd in a series of 9 articles based on research findings from our e-commerce [product list usability](http://baymard.com/research/ecommerce-product-lists study).$ }}
-  {{% end %}}
-  {{% anecdote %}}
-Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-  {{% end %}}
-{{% end %}}
-
 {{ graphic: href=//baymard.com + href-title=$Clicking this image will take you to Baymard.com!$ + assets-path=category-specific-sorting-01-rei-mock-up.jpg + size=full-width + caption=$This is the 3rd in a series of 9 articles based on research findings from our e-commerce [product list usability](http://baymard.com/research/ecommerce-product-lists study).$ }}
 
 We considered naming this article "the sort type all users want but zero sites offer" because category-specific sorting really is one of those rare instances where an obvious feature has somehow been **completely overlooked** by the e-commerce community. After all, it really shouldn't come as a surprise that users would like to sort a list of TVs by "Screen size" or a collection of hard drives by "Storage capacity".
