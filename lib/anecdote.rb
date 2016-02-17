@@ -22,7 +22,12 @@ module Anecdote
 
     raconteur.processors.register!('graphic', {
       handler: lambda do |settings|
-        klass = (['anecdote-graphic-dn32ja'] + module_classes(settings)).flatten.join(' ')
+        klasses = (['anecdote-graphic-dn32ja'] + module_classes(settings))
+        klasses << case settings[:border]
+        when 'none' then 'v-border-none'
+        when 'shadow' then 'v-border-shadow'
+        when 'line' then 'v-border-line'
+        end
         contents = []
         contents << view_context.content_tag((settings[:href].present? ? :a : :div), (settings[:href].present? ? { href: settings[:href], title: settings[:href_title] } : {}).merge({ class: 'anecdote-intrinsic-embed-n42ha1' })) do
           if settings[:assets_path]
@@ -47,7 +52,7 @@ module Anecdote
         if settings[:caption].present?
           contents << view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:caption]), class: 'inner anecdote-wysicontent-ndj4ab'), class: 'anecdote-caption-ajkd3b')
         end
-        view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), class: klass)
+        view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), class: klasses.compact.flatten.join(' '))
       end
       })
 

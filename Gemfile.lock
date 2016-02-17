@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    anecdote (0.0.14)
+    anecdote (0.0.15)
       kramdown
       nokogiri
       raconteur

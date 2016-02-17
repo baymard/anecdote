@@ -53,9 +53,21 @@ $remify-baseline: 20;
 --- generic styles applied to media such as images, videos, etc
 --------------------------------------------------- */
 .anecdote-intrinsic-embed-n42ha1 {
-  box-shadow: 0 1px 4px -1px rgba( 0, 0, 0, 0.3 );
-  border-top: 1px solid rgba( 0, 0, 0, 0.06 );
+  box-sizing: border-box;
   border-radius: 3px;
+  &, .anecdote-module-3ba83n.v-border-shadow & {
+    box-shadow: 0 1px 4px -1px rgba( 0, 0, 0, 0.3 );
+    border-top: 1px solid rgba( 0, 0, 0, 0.06 );
+  }
+  .anecdote-module-3ba83n.v-border-line & {
+    box-shadow: none;
+    border: 1px solid rgba( 0, 0, 0, 0.06 );
+  }
+  .anecdote-module-3ba83n.v-border-none & {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
   .anecdote-module-3ba83n.v-size-full-width & {
     border-radius: 0;
   }
