@@ -1,6 +1,6 @@
 require "raconteur"
 require "kramdown"
-require 'nokogiri'
+require "nokogiri"
 require "anecdote/engine"
 
 module Anecdote
@@ -182,7 +182,7 @@ module Anecdote
   end
   def self.insert_flex_basis_styles(html_content, flexes)
     index = 0
-    doc = Nokogiri::HTML::DocumentFragment.parse(html_content)
+    doc = ::Nokogiri::HTML::DocumentFragment.parse(html_content)
     doc.elements.each do |element|
       if element.attributes['class'].present? && element.attributes['class'].value.split(' ').include?('anecdote-module-3ba83n')
         flex = flexes[index]

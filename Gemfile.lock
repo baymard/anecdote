@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    anecdote (0.0.15)
+    anecdote (0.0.16)
       kramdown
       nokogiri
       raconteur
@@ -123,7 +123,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    raconteur (0.1.0)
+    raconteur (0.1.1)
     rails (4.2.5)
       actionmailer (= 4.2.5)
       actionpack (= 4.2.5)
