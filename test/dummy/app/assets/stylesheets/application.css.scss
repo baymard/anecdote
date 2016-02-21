@@ -34,10 +34,10 @@ $remify-baseline: 20;
 --- content blocks of formatted text and modules
 --------------------------------------------------- */
 .anecdote-wysicontent-ndj4ab {
-  > h1, > h2, > h3, > h4 {
+  > h1, > h2, > h3, > h4, > h5, > h6, > .anecdote-title-an4a2q.v-size-h1, > .anecdote-title-an4a2q.v-size-h2, > .anecdote-title-an4a2q.v-size-h3, > .anecdote-title-an4a2q.v-size-h4, > .anecdote-title-an4a2q.v-size-h5, > .anecdote-title-an4a2q.v-size-h6 {
     @include secondary-font;
   }
-  > h1, > h2, > h3, > h4, > p, > ul, > ol, > blockquote, > pre {
+  > h1, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > blockquote, > pre {
     @include centered-standard-width;
     strong {
       font-weight: 600;

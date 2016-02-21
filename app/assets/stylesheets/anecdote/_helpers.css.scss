@@ -1,5 +1,12 @@
 
 $remify-baseline: 16 !default;
+$anecdote-spacing-an4a2q: (
+  tiny: 0.15,
+  small: 0.6,
+  standard: 1,
+  big: 2.5,
+  mega: 4
+);
 $respond-devices: (
   medium-handheld: 350px,
   large-handheld: 450px,

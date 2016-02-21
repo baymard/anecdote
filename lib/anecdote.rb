@@ -172,6 +172,29 @@ module Anecdote
         view_context.content_tag(:div, nil, class: klasses.flatten.join(' '))
       end
       })
+
+    raconteur.processors.register!('title', {
+      handler: lambda do |settings|
+        klasses = ['anecdote-title-an4a2q']
+        klasses += spacing_classes(settings)
+        supported_sizes = %w(h1 h2 h3 h4 h5 h6 p)
+        # visual hierarchy, i.e. determines CSS / rendering
+        if supported_sizes.include?(settings[:size])
+          klasses << "v-size-#{settings[:size]}"
+        else
+          tag = 'v-size-h1'
+        end
+        # semantic hierarchy, i.e. determines HTML tag (if undefined, fall back on visual hierarchy)
+        if settings[:tag].present?
+          tag = settings[:tag]
+        elsif supported_sizes.include?(settings[:size])
+          tag = settings[:size]
+        else
+          tag = 'h1'
+        end
+        view_context.content_tag(tag, markdown_and_parse(settings[:text]).gsub(/^\<\/?\w+>|\<\/?\w+>$/i, '').html_safe, id: settings[:anchor], class: klasses.flatten.join(' '))
+      end
+      })
   end
 
 
@@ -228,8 +251,41 @@ module Anecdote
     klasses
   end
 
+  def self.spacing_classes(settings)
+    klasses = []
+    css_base = 'anecdote-adhoc-spacing-an4a2q'
+    css = {
+      none: 'an4a2q-v-none',
+      tiny: 'an4a2q-v-tiny',
+      small: 'an4a2q-v-small',
+      standard: 'an4a2q-v-standard',
+      big: 'an4a2q-v-big',
+      mega: 'an4a2q-v-mega'
+    }
+    supported_sizes = css.keys.map(&:to_s)
+    # both top and bottom
+    if settings[:spacing].present? && supported_sizes.include?(settings[:spacing])
+      klasses << css_base
+      klasses << ["#{css[settings[:spacing].to_sym]}-top", "#{css[settings[:spacing].to_sym]}-bottom"]
+    end
+    # top only
+    if settings[:spacing_before].present? && supported_sizes.include?(settings[:spacing_before])
+      klasses << css_base
+      klasses << "#{css[settings[:spacing_before].to_sym]}-top"
+    end
+    # bottom only
+    if settings[:spacing_after].present? && supported_sizes.include?(settings[:spacing_after])
+      klasses << css_base
+      klasses << "#{css[settings[:spacing_after].to_sym]}-bottom"
+    end
+    # flatten (in case of generic setting, which produces a nested array)
+    # uniq (in case of individual top and bottom settings)
+    klasses.flatten.compact.uniq
+  end
+
   def self.module_classes(settings)
     klasses = %w(anecdote-module-3ba83n)
+    klasses += spacing_classes(settings)
     klasses << case settings[:font_family]
     when 'primary' then 'anecdote-primary-font-a3a8fb'
     when 'secondary' then 'anecdote-secondary-font-a3a8fb'
@@ -278,7 +334,7 @@ module Anecdote
       when 'negative' then 'v-mood-negative'
       end
     end
-    klasses.compact
+    klasses.flatten.compact.uniq
   end
 
 

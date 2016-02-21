@@ -4,29 +4,43 @@
 --------------------------------------------------- */
 
 .anecdote-wysicontent-ndj4ab {
-  > *:first-child {
-    margin-top: 0;
+  > *, > .anecdote-title-an4a2q.v-size-h1, > .anecdote-title-an4a2q.v-size-h2, > .anecdote-title-an4a2q.v-size-h3, > .anecdote-title-an4a2q.v-size-h4, > .anecdote-title-an4a2q.v-size-h5, > .anecdote-title-an4a2q.v-size-h6, > .anecdote-title-an4a2q.v-size-p {
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
-  > *:last-child {
-    margin-bottom: 0;
-  }
-  > p, > ul, > ol, > blockquote, > pre {
+  > p, > ul, > ol, > blockquote, > pre, > .anecdote-title-an4a2q.v-size-p {
+    font-weight: 400;
     @include formatted-text( 1, 1, 1 );
   }
-  > h1, > h2, > h3, > h4 {
+  > h1, > h2, > h3, > h4, > h5, > h6, > .anecdote-title-an4a2q.v-size-h1, > .anecdote-title-an4a2q.v-size-h2, > .anecdote-title-an4a2q.v-size-h3, > .anecdote-title-an4a2q.v-size-h4, > .anecdote-title-an4a2q.v-size-h5, > .anecdote-title-an4a2q.v-size-h6 {
     font-weight: 600;
   }
-  > h1 {
-    @include formatted-text( 2 );
+  > h1, > .anecdote-title-an4a2q.v-size-h1 {
+    @include formatted-text( 2, 3 );
+    font-style: normal;
   }
-  > h2 {
+  > h2, > .anecdote-title-an4a2q.v-size-h2 {
     @include formatted-text( 1.55, 3 );
+    font-style: normal;
   }
-  > h3 {
+  > h3, > .anecdote-title-an4a2q.v-size-h3 {
     @include formatted-text( 1.3, 3 );
+    font-style: normal;
   }
-  > h4 {
+  > h4, > .anecdote-title-an4a2q.v-size-h4 {
     @include formatted-text( 1.15, 3 );
+    font-style: italic;
+  }
+  > h5, > .anecdote-title-an4a2q.v-size-h5 {
+    @include formatted-text( 1.1, 3 );
+    font-style: italic;
+  }
+  > h6, > .anecdote-title-an4a2q.v-size-h6 {
+    @include formatted-text( 1.05, 3 );
     font-style: italic;
   }
   > code, > pre {
@@ -82,7 +96,7 @@
 --- generic styles for images, pullquotes, asides, etc
 --------------------------------------------------- */
 .anecdote-module-3ba83n {
-  @include remify( margin-top margin-bottom, 1 );
+  @include remify( margin-top margin-bottom, map-get($anecdote-spacing-an4a2q, standard) );
   @include margin-horizontal( auto );
 
   // sizes
@@ -265,27 +279,8 @@
 
 
 /*---------------------------------------------------
---- Anecdote: Spacing & Horizontal Lines
+--- Anecdote: Horizontal Lines
 --------------------------------------------------- */
-
-.anecdote-spacing-an4a2q {
-  height: 1px;
-  width: 100%;
-  display: block;
-  @include remify( margin-top margin-bottom, 1.2 );
-  &.v-tiny {
-    @include remify( margin-top margin-bottom, 0.15 );
-  }
-  &.v-small {
-    @include remify( margin-top margin-bottom, 0.6 );
-  }
-  &.v-big {
-    @include remify( margin-top margin-bottom, 2.5 );
-  }
-  &.v-mega {
-    @include remify( margin-top margin-bottom, 4 );
-  }
-}
 
 .anecdote-horizontal-line-asj31a {
   width: 100%;
@@ -308,6 +303,72 @@
     display: none;
   }
 }
+
+
+/*---------------------------------------------------
+--- Anecdote: Spacing
+--------------------------------------------------- */
+
+.anecdote-spacing-an4a2q {
+  height: 1px;
+  width: 100%;
+  display: block;
+  @include remify( margin-top margin-bottom, map-get($anecdote-spacing-an4a2q, standard) );
+  &.v-tiny {
+    @include remify( margin-top margin-bottom, map-get($anecdote-spacing-an4a2q, tiny) );
+  }
+  &.v-small {
+    @include remify( margin-top margin-bottom, map-get($anecdote-spacing-an4a2q, small) );
+  }
+  &.v-big {
+    @include remify( margin-top margin-bottom, map-get($anecdote-spacing-an4a2q, big) );
+  }
+  &.v-mega {
+    @include remify( margin-top margin-bottom, map-get($anecdote-spacing-an4a2q, mega) );
+  }
+}
+
+.anecdote-adhoc-spacing-an4a2q {
+  &, .anecdote-wysicontent-ndj4ab > & {
+    &.an4a2q-v-none-top {
+      @include remify( margin-top, 0 );
+    }
+    &.an4a2q-v-none-bottom {
+      @include remify( margin-bottom, 0 );
+    }
+    &.an4a2q-v-tiny-top {
+      @include remify( margin-top, map-get($anecdote-spacing-an4a2q, tiny) );
+    }
+    &.an4a2q-v-tiny-bottom {
+      @include remify( margin-bottom, map-get($anecdote-spacing-an4a2q, tiny) );
+    }
+    &.an4a2q-v-small-top {
+      @include remify( margin-top, map-get($anecdote-spacing-an4a2q, small) );
+    }
+    &.an4a2q-v-small-bottom {
+      @include remify( margin-bottom, map-get($anecdote-spacing-an4a2q, small) );
+    }
+    &.an4a2q-v-standard-top {
+      @include remify( margin-top, map-get($anecdote-spacing-an4a2q, standard) );
+    }
+    &.an4a2q-v-standard-bottom {
+      @include remify( margin-bottom, map-get($anecdote-spacing-an4a2q, standard) );
+    }
+    &.an4a2q-v-big-top {
+      @include remify( margin-top, map-get($anecdote-spacing-an4a2q, big) );
+    }
+    &.an4a2q-v-big-bottom {
+      @include remify( margin-bottom, map-get($anecdote-spacing-an4a2q, big) );
+    }
+    &.an4a2q-v-mega-top {
+      @include remify( margin-top, map-get($anecdote-spacing-an4a2q, mega) );
+    }
+    &.an4a2q-v-mega-bottom {
+      @include remify( margin-bottom, map-get($anecdote-spacing-an4a2q, mega) );
+    }
+  }
+}
+
 
 /*---------------------------------------------------
 --- Anecdote: Font Styles & Sizes
