@@ -136,7 +136,9 @@ module Anecdote
     raconteur.processors.register!('anecdote', {
       handler: lambda do |settings|
         klass = (['anecdote-inception-ab2a8j'] + module_classes(settings)).flatten.join(' ')
-        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:_yield_]), class: 'anecdote-wysicontent-ndj4ab inner'), class: klass)
+        inner_klass = ['anecdote-wysicontent-ndj4ab', 'inner']
+        inner_klass << 'v-fit-content-to-fill-container' if settings[:fit_content_to_container]
+        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:_yield_]), class: inner_klass.join(' ')), class: klass)
       end
       })
 

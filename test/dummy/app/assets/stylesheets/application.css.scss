@@ -37,8 +37,11 @@ $remify-baseline: 20;
   > h1, > h2, > h3, > h4, > h5, > h6, > .anecdote-title-an4a2q.v-size-h1, > .anecdote-title-an4a2q.v-size-h2, > .anecdote-title-an4a2q.v-size-h3, > .anecdote-title-an4a2q.v-size-h4, > .anecdote-title-an4a2q.v-size-h5, > .anecdote-title-an4a2q.v-size-h6 {
     @include secondary-font;
   }
-  > h1, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > blockquote, > pre {
+  > p, > ul, > ol, > blockquote, > pre, > h1, > h2, > h3, > h4, > h5, > h6, > .anecdote-title-an4a2q.v-size-h1, > .anecdote-title-an4a2q.v-size-h2, > .anecdote-title-an4a2q.v-size-h3, > .anecdote-title-an4a2q.v-size-h4, > .anecdote-title-an4a2q.v-size-h5, > .anecdote-title-an4a2q.v-size-h6 {
     @include centered-standard-width;
+    @include scope-variation('.v-fit-content-to-fill-container') {
+      max-width: 100%;
+    }
     strong {
       font-weight: 600;
     }
@@ -79,6 +82,9 @@ $remify-baseline: 20;
 --------------------------------------------------- */
 .anecdote-module-3ba83n {
   @include centered-standard-width;
+  .anecdote-wysicontent-ndj4ab.v-fit-content-to-fill-container > & {
+    max-width: 100%;
+  }
   &.v-size-full-width > .inner {
     @include undo-page-padding;
   }
