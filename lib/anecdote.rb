@@ -158,7 +158,7 @@ module Anecdote
         when 'notable' then 'v-notable'
         when 'heavy' then 'v-heavy'
         end
-        view_context.content_tag(:div, view_context.content_tag(:hr), class: klasses.flatten.join(' '))
+        view_context.content_tag(:div, '<hr />'.html_safe, class: klasses.flatten.join(' '))
       end
       })
 
