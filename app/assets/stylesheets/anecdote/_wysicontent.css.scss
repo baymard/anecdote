@@ -393,3 +393,13 @@
 .anecdote-large-text-size-an43ja {
   @include remify( font-size, 1.15 );
 }
+
+.anecdote-center-aligned-text-vnd5b3 {
+  text-align: center;
+}
+.anecdote-right-aligned-text-vnd5b3 {
+  text-align: right;
+}
+.anecdote-left-aligned-text-vnd5b3 {
+  text-align: left;
+}

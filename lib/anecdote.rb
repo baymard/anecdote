@@ -137,7 +137,7 @@ module Anecdote
       handler: lambda do |settings|
         klass = (['anecdote-inception-ab2a8j'] + module_classes(settings)).flatten.join(' ')
         inner_klass = ['anecdote-wysicontent-ndj4ab', 'inner']
-        inner_klass << 'v-fit-content-to-fill-container' if settings[:fit_content_to_container]
+        inner_klass << 'v-fit-content-to-fill-container' if settings[:fit_content_to_container].present? && ['true', 'yes', true].include?(settings[:fit_content_to_container])
         view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:_yield_]), class: inner_klass.join(' ')), class: klass)
       end
       })
@@ -179,6 +179,7 @@ module Anecdote
       handler: lambda do |settings|
         klasses = ['anecdote-title-an4a2q']
         klasses += spacing_classes(settings)
+        klasses += text_classes(settings.merge(skip_font_size: true))
         supported_sizes = %w(h1 h2 h3 h4 h5 h6 p)
         # visual hierarchy, i.e. determines CSS / rendering
         if supported_sizes.include?(settings[:size])
@@ -194,7 +195,7 @@ module Anecdote
         else
           tag = 'h1'
         end
-        view_context.content_tag(tag, markdown_and_parse(settings[:text]).gsub(/^\<\/?\w+>|\<\/?\w+>$/i, '').html_safe, id: settings[:anchor], class: klasses.flatten.join(' '))
+        view_context.content_tag(tag, markdown_and_parse_without_wrapping_tags(settings[:text]), id: settings[:anchor], class: klasses.flatten.join(' '))
       end
       })
   end
@@ -285,19 +286,32 @@ module Anecdote
     klasses.flatten.compact.uniq
   end
 
-  def self.module_classes(settings)
-    klasses = %w(anecdote-module-3ba83n)
-    klasses += spacing_classes(settings)
+  def self.text_classes(settings)
+    klasses = []
     klasses << case settings[:font_family]
     when 'primary' then 'anecdote-primary-font-a3a8fb'
     when 'secondary' then 'anecdote-secondary-font-a3a8fb'
     end
-    klasses << case settings[:font_size]
-    when 'tiny' then 'anecdote-tiny-text-size-an43ja'
-    when 'small' then 'anecdote-small-text-size-an43ja'
-    when 'normal' then 'anecdote-normal-text-size-an43ja'
-    when 'large' then 'anecdote-large-text-size-an43ja'
+    unless settings[:skip_font_size]
+      klasses << case settings[:font_size]
+      when 'tiny' then 'anecdote-tiny-text-size-an43ja'
+      when 'small' then 'anecdote-small-text-size-an43ja'
+      when 'normal' then 'anecdote-normal-text-size-an43ja'
+      when 'large' then 'anecdote-large-text-size-an43ja'
+      end
     end
+    klasses << case settings[:text_align]
+    when 'left' then 'anecdote-left-aligned-text-vnd5b3'
+    when 'right' then 'anecdote-right-aligned-text-vnd5b3'
+    when 'center' then 'anecdote-center-aligned-text-vnd5b3'
+    end
+    klasses.flatten.compact.uniq
+  end
+
+  def self.module_classes(settings)
+    klasses = %w(anecdote-module-3ba83n)
+    klasses += spacing_classes(settings)
+    klasses += text_classes(settings)
     if settings[:size].present?
       klasses << case settings[:size]
       when 'small' then 'v-size-small'
@@ -337,6 +351,10 @@ module Anecdote
       end
     end
     klasses.flatten.compact.uniq
+  end
+
+  def self.markdown_and_parse_without_wrapping_tags(text="")
+    markdown_and_parse(text).gsub(/^\<\/?\w+>|\<\/?\w+>$/i, '').html_safe
   end
 
 
