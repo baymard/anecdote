@@ -311,6 +311,7 @@ module Anecdote
 
   def self.module_classes(settings)
     klasses = %w(anecdote-module-3ba83n)
+    klasses += settings[:css_class].split(' ') if settings[:css_class].present?
     klasses += spacing_classes(settings)
     klasses += text_classes(settings)
     if settings[:size].present?
