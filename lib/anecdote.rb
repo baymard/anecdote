@@ -168,6 +168,7 @@ module Anecdote
         klasses << case settings[:size]
         when 'tiny' then 'v-tiny'
         when 'small' then 'v-small'
+        when 'standard' then 'v-standard'
         when 'big' then 'v-big'
         when 'mega' then 'v-mega'
         end

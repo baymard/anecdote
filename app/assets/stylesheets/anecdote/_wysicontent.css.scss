@@ -320,6 +320,9 @@
   &.v-small {
     @include remify( margin-top margin-bottom, map-get($anecdote-spacing-an4a2q, small) );
   }
+  &.v-standard {
+    @include remify( margin-top margin-bottom, map-get($anecdote-spacing-an4a2q, standard) );
+  }
   &.v-big {
     @include remify( margin-top margin-bottom, map-get($anecdote-spacing-an4a2q, big) );
   }
