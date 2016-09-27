@@ -196,7 +196,7 @@ module Anecdote
         else
           tag = 'h1'
         end
-        view_context.content_tag(tag, markdown_and_parse_without_wrapping_tags(settings[:text]), id: settings[:anchor], class: klasses.flatten.join(' '))
+        view_context.content_tag(tag, markdown_and_parse_without_wrapping_tags(settings[:text] || settings[:_yield_]), id: settings[:anchor], class: klasses.flatten.join(' '))
       end
       })
   end
@@ -356,7 +356,7 @@ module Anecdote
   end
 
   def self.markdown_and_parse_without_wrapping_tags(text="")
-    markdown_and_parse(text).gsub(/^\<\/?\w+>|\<\/?\w+>$/i, '').html_safe
+    markdown_and_parse(text).gsub(/^\<\/?\w+>|\<\/?\w+>$/i, '').gsub(/^\s*|\s*$/mi, '').html_safe
   end
 
 
