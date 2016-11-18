@@ -293,6 +293,12 @@ module Anecdote
     when 'primary' then 'anecdote-primary-font-a3a8fb'
     when 'secondary' then 'anecdote-secondary-font-a3a8fb'
     end
+    klasses << case settings[:text_dimming]
+    when 'none' then 'anecdote-no-text-dimming-lk8j2n'
+    when 'mild' then 'anecdote-mild-text-dimming-lk8j2n'
+    when 'medium' then 'anecdote-medium-text-dimming-lk8j2n'
+    when 'aggressive' then 'anecdote-aggressive-text-dimming-lk8j2n'
+    end
     unless settings[:skip_font_size]
       klasses << case settings[:font_size]
       when 'tiny' then 'anecdote-tiny-text-size-an43ja'
