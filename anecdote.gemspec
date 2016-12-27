@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails"
   s.add_dependency "sass-rails"
   s.add_dependency "uglifier"
-  s.add_dependency "raconteur"
+  s.add_dependency "raconteur", "~> 0.2.0"
   s.add_dependency "kramdown"
   s.add_dependency "nokogiri"
 
