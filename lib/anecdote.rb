@@ -6,7 +6,11 @@ require "anecdote/engine"
 module Anecdote
 
   def self.markdown_and_parse(content="")
-    ::Kramdown::Document.new( raconteur.parse(content), { input: :GFM } ).to_html.html_safe
+    markdown_only( raconteur.parse(content) )
+  end
+
+  def self.markdown_only(content)
+    ::Kramdown::Document.new( content.presence || "", { input: :GFM } ).to_html.html_safe
   end
 
   def self.raconteur
