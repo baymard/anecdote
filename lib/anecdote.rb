@@ -56,7 +56,7 @@ module Anecdote
         if settings[:caption].present?
           contents << view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:caption]), class: 'inner anecdote-wysicontent-ndj4ab'), class: 'anecdote-caption-ajkd3b')
         end
-        view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), class: klasses.compact.flatten.join(' '))
+        view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), module_wrapper_options(settings).merge(class: klasses.compact.flatten.join(' ')))
       end
       })
 
@@ -124,7 +124,7 @@ module Anecdote
         if settings[:caption].present?
           contents << view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:caption]), class: 'inner anecdote-wysicontent-ndj4ab'), class: 'anecdote-caption-ajkd3b')
         end
-        view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), class: klasses.flatten.join(' '))
+        view_context.content_tag(:div, view_context.content_tag(:div, contents.join("\n").html_safe, class: 'inner'), module_wrapper_options(settings).merge(class: klasses.flatten.join(' ')))
       end
       })
 
@@ -133,7 +133,7 @@ module Anecdote
         klasses = ['anecdote-columns-nab3a2']
         klasses += module_classes(settings)
         columns = insert_flex_basis_styles(settings[:_yield_].html_safe, parse_custom_flexes(settings))
-        view_context.content_tag(:div, view_context.content_tag(:div, columns.html_safe, class: (['inner'] + flex_classes(settings)).flatten.join(' ')), class: klasses.flatten.join(' '))
+        view_context.content_tag(:div, view_context.content_tag(:div, columns.html_safe, class: (['inner'] + flex_classes(settings)).flatten.join(' ')), module_wrapper_options(settings).merge(class: klasses.flatten.join(' ')))
       end
       })
 
@@ -142,14 +142,14 @@ module Anecdote
         klass = (['anecdote-inception-ab2a8j'] + module_classes(settings)).flatten.join(' ')
         inner_klass = ['anecdote-wysicontent-ndj4ab', 'inner']
         inner_klass << 'v-fit-content-to-fill-container' if settings[:fit_content_to_container].present? && ['true', 'yes', true].include?(settings[:fit_content_to_container])
-        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:_yield_]), class: inner_klass.join(' ')), class: klass)
+        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:_yield_]), class: inner_klass.join(' ')), module_wrapper_options(settings).merge(class: klass))
       end
       })
 
     raconteur.processors.register!('pull-quote', {
       handler: lambda do |settings|
         klass = (['anecdote-pull-quote-sba2ha'] + module_classes(settings)).flatten.join(' ')
-        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:text]), class: 'inner'), class: klass)
+        view_context.content_tag(:div, view_context.content_tag(:div, markdown_and_parse(settings[:text]), class: 'inner'), module_wrapper_options(settings).merge(class: klass))
       end
       })
 
@@ -162,7 +162,7 @@ module Anecdote
         when 'notable' then 'v-notable'
         when 'heavy' then 'v-heavy'
         end
-        view_context.content_tag(:div, '<hr />'.html_safe, class: klasses.flatten.join(' '))
+        view_context.content_tag(:div, '<hr />'.html_safe, module_wrapper_options(settings).merge(class: klasses.flatten.join(' ')))
       end
       })
 
@@ -176,7 +176,7 @@ module Anecdote
         when 'big' then 'v-big'
         when 'mega' then 'v-mega'
         end
-        view_context.content_tag(:div, nil, class: klasses.flatten.join(' '))
+        view_context.content_tag(:div, nil, module_wrapper_options(settings).merge(class: klasses.flatten.join(' ')))
       end
       })
 
@@ -200,7 +200,7 @@ module Anecdote
         else
           tag = 'h1'
         end
-        view_context.content_tag(tag, markdown_and_parse_without_wrapping_tags(settings[:text] || settings[:_yield_]), id: settings[:anchor], class: klasses.flatten.join(' '))
+        view_context.content_tag(tag, markdown_and_parse_without_wrapping_tags(settings[:text] || settings[:_yield_]), module_wrapper_options(settings).merge(id: settings[:anchor], class: klasses.flatten.join(' ')))
       end
       })
   end
@@ -317,6 +317,12 @@ module Anecdote
     when 'center' then 'anecdote-center-aligned-text-vnd5b3'
     end
     klasses.flatten.compact.uniq
+  end
+
+  def self.module_wrapper_options(settings)
+    options = {}
+    options['data-anecdote-embeddable-image-url'] = settings[:embeddable_image_url] if settings[:embeddable_image_url].present?
+    options
   end
 
   def self.module_classes(settings)
