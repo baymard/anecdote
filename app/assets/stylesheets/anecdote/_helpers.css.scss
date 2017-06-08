@@ -11,12 +11,14 @@ $respond-devices: (
   medium-handheld: 350px,
   large-handheld: 450px,
   tablet: 650px,
+  medium-tablet: 735px,
   laptop: 960px,
   large-monitor: 1300px
 );
 $respond-device-medium-handheld: map-get($respond-devices, medium-handheld);
 $respond-device-large-handheld: map-get($respond-devices, large-handheld);
 $respond-device-tablet: map-get($respond-devices, tablet);
+$respond-device-medium-tablet: map-get($respond-devices, medium-tablet);
 $respond-device-laptop: map-get($respond-devices, laptop);
 $respond-device-large-monitor: map-get($respond-devices, large-monitor);
 $fix-mqs: false !default;
@@ -91,6 +93,8 @@ $color-strokes: #e9e9e9 !default;
     $width: $respond-device-large-handheld;
   } @else if $device == tablet {
     $width: $respond-device-tablet;
+  } @else if $device == medium-tablet {
+    $width: $respond-device-medium-tablet;
   } @else if $device == laptop {
     $width: $respond-device-laptop;
   } @else if $device == large-monitor {
