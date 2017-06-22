@@ -236,6 +236,10 @@ module Anecdote
     when 'small' then 'v-gutter-spacing-small'
     when 'large' then 'v-gutter-spacing-large'
     end
+    # reverse order
+    if settings.key?(:reverse_order_on_flow) && ['true', 'yes', true].include?(settings[:reverse_order_on_flow])
+      klasses << 'v-reverse-order-on-flow'
+    end
     # when to wrap
     klasses << case settings[:flow_from]
     when 'always' then 'v-flow-from-always'

@@ -207,6 +207,10 @@
         margin-top: 0;
         margin-bottom: 0;
       }
+
+      &.v-reverse-order-on-flow {
+        flex-direction: row-reverse;
+      }
     }
     // TODO: support for nested flex modules with custom gutter spacing!
     > .anecdote-module-3ba83n {
@@ -216,11 +220,27 @@
           margin-left: 0;
         }
       }
+      @include scope-variation( '.v-reverse-order-on-flow' ) {
+        .flexbox & {
+          @include remify( margin-left, 2.5 );
+          &:last-child {
+            margin-left: 0;
+          }
+        }
+      }
       @include scope-variation( '.v-gutter-spacing-small' ) {
         .flexbox & {
           @include remify( margin-left, 1 );
           &:first-child {
             margin-left: 0;
+          }
+        }
+        @include scope-variation( '.v-reverse-order-on-flow' ) {
+          .flexbox & {
+            @include remify( margin-left, 1 );
+            &:last-child {
+              margin-left: 0;
+            }
           }
         }
       }
@@ -229,6 +249,14 @@
           @include remify( margin-left, 4 );
           &:first-child {
             margin-left: 0;
+          }
+        }
+        @include scope-variation( '.v-reverse-order-on-flow' ) {
+          .flexbox & {
+            @include remify( margin-left, 4 );
+            &:last-child {
+              margin-left: 0;
+            }
           }
         }
       }
