@@ -121,6 +121,14 @@ $remify-baseline: 20;
   }
   .anecdote-module-3ba83n & {
     @mixin anecdote-caption-ajkd3b-mood-icon( $tmp-color, $tmp-svg-paths ) {
+      @include scope-variation( '.v-sidebar-caption' ) {
+        .flexbox & {
+          > .inner {
+            padding-left: 0;
+            @include remify( text-indent, 1.1 );
+          }
+        }
+      }
       > .inner {
         @include remify( padding-left, 1.15 );
         position: relative;

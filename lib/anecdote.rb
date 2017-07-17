@@ -32,6 +32,10 @@ module Anecdote
         when 'shadow' then 'v-border-shadow'
         when 'line' then 'v-border-line'
         end
+        klasses << 'v-sidebar-caption' if [true, 'true', 'yes', 'left', 'right', 'first', 'last'].include?(settings[:sidebar_caption])
+        klasses << 'v-sidebar-caption v-sidebar-caption-left' if ['left', 'first'].include?(settings[:sidebar_caption])
+        klasses << 'v-sidebar-caption v-sidebar-caption-right' if ['right', 'last'].include?(settings[:sidebar_caption])
+
         contents = []
         contents << view_context.content_tag((settings[:href].present? ? :a : :div), (settings[:href].present? ? { href: settings[:href], title: settings[:href_title] } : {}).merge({ class: 'anecdote-intrinsic-embed-n42ha1' })) do
           if settings[:assets_path]

@@ -162,6 +162,67 @@
   .anecdote-caption-ajkd3b {
     @include remify( padding-top, 0.5 );
   }
+
+  // sidebar captions (only when flexbox is supported)
+  @include respond(min, tablet) {
+
+    .flexbox &.v-sidebar-caption {
+      > .inner {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        -webkit-align-content: stretch;
+        -ms-flex-line-pack: stretch;
+        align-content: stretch;
+        > .anecdote-intrinsic-embed-n42ha1 {
+          -webkit-order: 10;
+          -ms-flex-order: 10;
+          order: 10;
+          -webkit-flex: 1 1 auto;
+          -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+          -webkit-align-self: flex-start;
+          -ms-flex-item-align: start;
+          align-self: flex-start;
+        }
+        > .anecdote-caption-ajkd3b {
+          -webkit-order: 20;
+          -ms-flex-order: 20;
+          order: 20;
+          padding-top: 0;
+          @include remify( padding-left, 1 );
+          -webkit-flex: 0 0 230px;
+          -ms-flex: 0 0 230px;
+          flex: 0 0 230px;
+          -webkit-flex: 0 0 10.5rem;
+          -ms-flex: 0 0 10.5rem;
+          flex: 0 0 10.5rem;
+          -webkit-align-self: auto;
+          -ms-flex-item-align: auto;
+          align-self: auto;
+        }
+      }
+    }
+    .flexbox &.v-sidebar-caption.v-sidebar-caption-left {
+      > .inner > .anecdote-caption-ajkd3b {
+        -webkit-order: 1;
+        -ms-flex-order: 1;
+        order: 1;
+        @include remify( padding-right, 1 );
+        padding-left: 0;
+      }
+    }
+  }
+
 }
 
 /*---------------------------------------------------
