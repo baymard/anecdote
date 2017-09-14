@@ -4,13 +4,18 @@
 --------------------------------------------------- */
 
 .anecdote-wysicontent-ndj4ab {
+  // default line-height
   > * {
     line-height: 1.65;
   }
+
+  // default text styles
   > p, > ul, > ol, > blockquote, > pre, > .anecdote-title-an4a2q.v-size-p {
     font-weight: 400;
     @include formatted-text( 1, 1, 1, false );
   }
+
+  // titles
   > h1, > h2, > h3, > h4, > h5, > h6, > .anecdote-title-an4a2q.v-size-h1, > .anecdote-title-an4a2q.v-size-h2, > .anecdote-title-an4a2q.v-size-h3, > .anecdote-title-an4a2q.v-size-h4, > .anecdote-title-an4a2q.v-size-h5, > .anecdote-title-an4a2q.v-size-h6 {
     font-weight: 600;
     line-height: 1.425;
@@ -40,9 +45,13 @@
     @include formatted-text( 1.05, 3, 1, false );
     font-style: italic;
   }
+
+  // code
   > code, > pre {
     font-family: monospace;
   }
+
+  // quotations
   > blockquote, > q {
     padding: 0 1.8em;
     quotes: '\201C' '\201D';
@@ -55,6 +64,8 @@
       content: '\201D'
     }
   }
+
+  // list styles
   > ul, > ol {
     padding-left: 0;
     > li {
@@ -62,6 +73,8 @@
       @include formatted-text( 1, 0.75, 0.75, false );
     }
   }
+
+  // remove margins from first and last element
   > *, > *.anecdote-title-an4a2q {
     &:first-child {
       margin-top: 0;
