@@ -121,11 +121,13 @@ $remify-baseline: 20;
   }
   .anecdote-module-3ba83n & {
     @mixin anecdote-caption-ajkd3b-mood-icon( $tmp-color, $tmp-svg-paths ) {
-      @include scope-variation( '.v-sidebar-caption' ) {
-        .flexbox & {
-          > .inner {
-            padding-left: 0;
-            @include remify( text-indent, 1.1 );
+      @include respond(min, tablet) {
+        @include scope-variation( '.v-sidebar-caption' ) {
+          .flexbox & {
+            > .inner {
+              padding-left: 0;
+              @include remify( text-indent, 1.1 );
+            }
           }
         }
       }
