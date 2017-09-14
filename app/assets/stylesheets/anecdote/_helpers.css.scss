@@ -99,6 +99,8 @@ $color-strokes: #e9e9e9 !default;
     $width: $respond-device-laptop;
   } @else if $device == large-monitor {
     $width: $respond-device-large-monitor;
+  } @else if type-of($device) == number {
+    $width: $device;
   }
   // If we're outputting for a fixed media query set...
   @if $fix-mqs and $type == min {
