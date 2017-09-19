@@ -17,10 +17,6 @@ module Anecdote
     @raconteur ||= ::Raconteur.new
   end
 
-  def self.inline_js
-    view_context.content_tag(:script, Rails.application.assets.find_asset('anecdote/application.js').to_s.html_safe)
-  end
-
   def self.init_raconteur
     raconteur.settings.setting_quotes = '$'
 
@@ -224,8 +220,6 @@ module Anecdote
         index += 1
         styles = []
         if flex[:width].present?
-          styles << "-webkit-flex-basis:#{flex[:width] * 100}%"
-          styles << "-moz-flex-basis:#{flex[:width] * 100}%"
           styles << "flex-basis:#{flex[:width] * 100}%"
         end
         element.set_attribute('style', styles.join(';'))
@@ -238,6 +232,7 @@ module Anecdote
     # custom gutter spacing
     klasses << case settings[:gutter_spacing]
     when 'small' then 'v-gutter-spacing-small'
+    when 'medium' then 'v-gutter-spacing-medium'
     when 'large' then 'v-gutter-spacing-large'
     end
     # reverse order
