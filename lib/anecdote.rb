@@ -220,6 +220,7 @@ module Anecdote
         index += 1
         styles = []
         if flex[:width].present?
+          styles << "width:#{flex[:width] * 100}%"
           styles << "flex-basis:#{flex[:width] * 100}%"
         end
         element.set_attribute('style', styles.join(';'))

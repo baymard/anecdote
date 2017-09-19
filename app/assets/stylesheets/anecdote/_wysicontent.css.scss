@@ -263,6 +263,21 @@
   // flow modules helper (for looping over responsive breakpoints)
   @mixin flow-modules-an32ka {
 
+    // legacy browsers
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    > .anecdote-module-3ba83n {
+      float: left;
+      margin-top: 0;
+      margin-bottom: 0;
+      > .inner { padding-left: 20px; }
+      &:first-child > .inner { padding-left: 0; }
+    }
+
+    // modern browsers
     @include supports( flexbox ) {
       .anecdote-flex-offset-a4j2aj {
         display: block;
@@ -272,17 +287,15 @@
       > .anecdote-module-3ba83n {
         flex: 1 1 auto;
         max-width: 100%;
-        margin-top: 0;
-        margin-bottom: 0;
-      }
 
-      &.v-reverse-order-on-flow {
-        flex-direction: row-reverse;
-      }
+        // undo legacy browser settings
+        float: none;
+        width: auto !important;
+        > .inner { padding-left: 0; }
 
-      // gutter spacing
-      // TODO: support for nested flex modules with custom gutter spacing!
-      > .anecdote-module-3ba83n {
+        // --- gutter spacing ---
+        // TODO: support for nested flex modules with custom gutter spacing!
+
         // default
         @include flow-modules-gutter-spacing-an32ka( 2.5 );
         // user-defined
@@ -297,6 +310,10 @@
         }
       }
 
+      &.v-reverse-order-on-flow {
+        flex-direction: row-reverse;
+      }
+
     }
   }
   &.v-flow-from-always {
@@ -306,6 +323,11 @@
     &.v-flow-from-#{$breakpoint-name} {
       @include respond(min, $breakpoint-name) {
         @include flow-modules-an32ka;
+      }
+      @include respond(max, $breakpoint-name) {
+        > .anecdote-module-3ba83n {
+          width: 100% !important;
+        }
       }
     }
   }
