@@ -182,7 +182,7 @@
   }
 
   // sidebar captions (only when flexbox is supported)
-  @supports ( display: flex ) {
+  @include supports( flexbox ) {
     @include respond(min, tablet) {
       &.v-sidebar-caption {
         > .inner {
@@ -231,7 +231,7 @@
       margin-top: 0;
     }
   }
-  @supports ( display: flex ) {
+  @include supports( flexbox ) {
     &.anecdote-flex-module-a4j2aj .flex-scope > .anecdote-module-3ba83n {
       @include remify( margin-left, 1 );
     }
@@ -263,7 +263,7 @@
   // flow modules helper (for looping over responsive breakpoints)
   @mixin flow-modules-an32ka {
 
-    @supports ( display: flex ) {
+    @include supports( flexbox ) {
       .anecdote-flex-offset-a4j2aj {
         display: block;
       }

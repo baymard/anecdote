@@ -123,7 +123,7 @@ $remify-baseline: 20;
     @mixin anecdote-caption-ajkd3b-mood-icon( $tmp-text-icon, $tmp-color, $tmp-svg-paths ) {
       @include respond(min, tablet) {
         @include scope-variation( '.v-sidebar-caption' ) {
-          @supports ( display: flex ) {
+          @include supports( flexbox ) {
             > .inner {
               padding-left: 0;
               @include remify( text-indent, 1.1 );
@@ -144,15 +144,14 @@ $remify-baseline: 20;
           content: $tmp-text-icon;
           color: $tmp-color;
           // icon
-          $tmp-background-image: url('data:image/svg+xml;utf8,<svg fill="#{$tmp-color}" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">#{$tmp-svg-paths}</svg>');
-          @supports ( background-image: $tmp-background-image ) {
+          @include supports( svg-background ) {
             content: '';
             top: 0.1em;
             @include remify( background-size, 0.8, 0.8 );
             background-attachment: scroll;
             background-position: left center;
             background-repeat: no-repeat;
-            background-image: $tmp-background-image;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="#{$tmp-color}" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">#{$tmp-svg-paths}</svg>');
           }
         }
       }

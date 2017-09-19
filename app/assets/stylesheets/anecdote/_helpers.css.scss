@@ -1,4 +1,8 @@
 
+$disable-progressive-enhancements-dj3nar: false !default;
+$fix-mqs: false !default;
+$old-ie: false !default;
+
 $remify-baseline: 16 !default;
 $anecdote-spacing-an4a2q: (
   tiny: 0.15,
@@ -21,7 +25,6 @@ $respond-device-tablet: map-get($respond-devices, tablet);
 $respond-device-medium-tablet: map-get($respond-devices, medium-tablet);
 $respond-device-laptop: map-get($respond-devices, laptop);
 $respond-device-large-monitor: map-get($respond-devices, large-monitor);
-$fix-mqs: false !default;
 $color-strokes: #e9e9e9 !default;
 
 
@@ -127,10 +130,72 @@ $color-strokes: #e9e9e9 !default;
   }
 }
 
-$old-ie: false !default;
 @mixin old-ie {
   // Only use this content if we're dealing with old IE
   @if $old-ie {
+    @content;
+  }
+}
+
+
+
+//-----------------------------------------------
+// progressive enhancements
+//-----------------------------------------------
+
+@function join-array-with-string-dj3nar($list, $glue: '', $is-nested: false) {
+  $result: null;
+
+  @for $i from 1 through length($list) {
+    $e: nth($list, $i);
+
+    @if type-of($e) == list {
+      $result: $result#{join-array-with-string-dj3nar($e, $glue, true)};
+    }
+
+    @else {
+      $result: if($i != length($list) or $is-nested, $result#{$e}#{$glue}, $result#{$e});
+    }
+  }
+
+  @return $result;
+}
+
+@mixin supports( $properties... ) {
+  $features: ();
+
+  // loop over all the properties and add to feature query
+  @each $property in $properties {
+
+    @if $property == 'svg-background' {
+      $features: append( $features, "background: url(\"data:image/svg+xml;charset=utf8,%3Csvg fill='%23fff' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E\")" );
+
+    } @else if $property == 'background-size' {
+      $features: append( $features, 'background-size: 100% 100%');
+
+    } @else if $property == 'appearance-prefixed' {
+      $features: append( $features, '(-webkit-appearance: none) or (-moz-appearance: none) or (appearance: none)');
+
+    } @else if $property == 'advanced-box-shadow' {
+      $features: append( $features, 'box-shadow: inset 0 0 1px rgba(0,0,0,.11), 0 1px 2px rgba(0,0,0,.22)');
+
+    } @else if $property == 'flexbox' {
+      $features: append( $features, 'display: flex');
+
+    } @else if $property == 'grid' {
+      $features: append( $features, 'display: grid');
+
+    }
+
+  }
+
+  // add bogus feature query as a way to globally disable all progressive enhancements
+  @if $disable-progressive-enhancements-dj3nar {
+    $features: append( $features, 'holi: badoli');
+  }
+
+  // construct the feature query and scope it around the @content
+  @supports #{ '(#{ join-array-with-string-dj3nar( $features, ') and (' ) })' } {
     @content;
   }
 }
