@@ -327,6 +327,7 @@
       @include respond(max, $breakpoint-name) {
         > .anecdote-module-3ba83n {
           width: 100% !important;
+          box-sizing: border-box;
         }
       }
     }
