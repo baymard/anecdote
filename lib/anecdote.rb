@@ -203,6 +203,39 @@ module Anecdote
         view_context.content_tag(tag, markdown_and_parse_without_wrapping_tags(settings[:text] || settings[:_yield_]), module_wrapper_options(settings).merge(id: settings[:anchor], class: klasses.flatten.join(' ')))
       end
       })
+
+
+    raconteur.processors.register!('display-if', {
+      handler: lambda do |settings|
+        response = ''
+        # grab the 'format' provided to Anecdote for this particular call, or the default setting (if neither has been provdided, nothing is rendered)
+        if ( settings.key?([:_scope_]) && settings[:_scope_].key?(:format) ) || ( raconteur.settings.key?(:render_options) && raconteur.settings[:render_options].key?(:default_format) )
+          current_format = ( settings[:_scope_][:format] || raconteur.settings[:render_options][:default_format] ).to_s
+          sanctioned_formats = settings[:formats].split(',').map(&:to_s).select(&:present?)
+          # if the current format matches one of the formats "sanctioned" by the tag, render the content (otherwise, nothing is rendered)
+          if sanctioned_formats.include?(current_format)
+            response = settings[:_yield_]
+          end
+        end
+        response
+      end
+      })
+    raconteur.processors.register!('display-unless', {
+      handler: lambda do |settings|
+        response = settings[:_yield_]
+        # grab the 'format' provided to Anecdote for this particular call, or the default setting (if neither has been provided, the content is rendered)
+        if ( settings.key?([:_scope_]) && settings[:_scope_].key?(:format) ) || ( raconteur.settings.key?(:render_options) && raconteur.settings[:render_options].key?(:default_format) )
+          current_format = ( settings[:_scope_][:format] || raconteur.settings[:render_options][:default_format] ).to_s
+          unsanctioned_formats = settings[:formats].split(',').map(&:to_s).select(&:present?)
+          # if the current format matches one of the formats "unsanctioned" by the tag, nothing is rendered (otherwise, the content is rendered)
+          if unsanctioned_formats.include?(current_format)
+            response = ''
+          end
+        end
+        response
+      end
+      })
+
   end
 
 
@@ -390,3 +423,4 @@ module Anecdote
 end
 
 Anecdote.init_raconteur
+Anecdote.raconteur.settings[:render_options] = { default_format: :web }

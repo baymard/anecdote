@@ -2,7 +2,9 @@
 
 {{ graphic: href=//baymard.com + href-title=$Clicking this image will take you to Baymard.com!$ + assets-path=category-specific-sorting-01-rei-mock-up.jpg + size=full-width + caption=$This is the 3rd in a series of 9 articles based on research findings from our e-commerce [product list usability](http://baymard.com/research/ecommerce-product-lists study).$ }}
 
+{{% display-if: formats=print,web %}}
 We considered naming this article "the sort type all users want but zero sites offer" because category-specific sorting really is one of those rare instances where an obvious feature has somehow been **completely overlooked** by the e-commerce community.
+{{% end %}}
 
 {{ graphic: size=big + dimensions=1280x720 + embed-code=$<iframe src="https://www.youtube.com/embed/ZCBE8ocOkAQ" frameborder="0" allowfullscreen></iframe>$ + mood=positive + sidebar-caption=true + caption=$A mockup we've created of what category-specific sort types could look like at BestBuy. Here the three last sorting options – for TV screen size, refresh rate, and display depth – are available exclusively within the TV category while the other sort types are available site-wide.$ }}
 
