@@ -47,7 +47,7 @@ module Anecdote
             dimensions = settings[:dimensions].split('x').map(&:to_f)
             geo = { width: dimensions.first, height: dimensions.last }
           end
-          if settings[:_scope_].present? && settings[:_scope_][:processor].tag == 'gallery'
+          if settings[:_scope_].present? && settings[:_scope_].key?(:processor) && settings[:_scope_][:processor].tag == 'gallery'
             settings[:_scope_][:settings][:_graphics_] ||= []
             settings[:_scope_][:settings][:_graphics_] << geo
           end
