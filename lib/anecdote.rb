@@ -5,12 +5,12 @@ require "anecdote/engine"
 
 module Anecdote
 
-  def self.markdown_and_parse(content="")
-    markdown_only( raconteur.parse(content) )
+  def self.markdown_and_parse(content="", options={})
+    markdown_only( raconteur.parse(content, options[:raconteur_options] || {}), options[:kramdown_options] )
   end
 
-  def self.markdown_only(content)
-    ::Kramdown::Document.new( content.presence || "", { input: :GFM } ).to_html.html_safe
+  def self.markdown_only(content="", options={})
+    ::Kramdown::Document.new( content.presence, { input: :GFM }.merge(options || {}) ).to_html.html_safe
   end
 
   def self.raconteur
