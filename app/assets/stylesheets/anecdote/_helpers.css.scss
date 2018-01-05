@@ -150,11 +150,11 @@ $color-strokes: #e9e9e9 !default;
     $e: nth($list, $i);
 
     @if type-of($e) == list {
-      $result: $result#{join-array-with-string-dj3nar($e, $glue, true)};
+      $result: unquote("#{$result}#{join-array-with-string-dj3nar($e, $glue, true)}");
     }
 
     @else {
-      $result: if($i != length($list) or $is-nested, $result#{$e}#{$glue}, $result#{$e});
+      $result: if($i != length($list) or $is-nested, unquote("#{$result}#{$e}#{$glue}"), unquote("#{$result}#{$e}"));
     }
   }
 
