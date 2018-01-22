@@ -10,7 +10,7 @@ module Anecdote
   end
 
   def self.markdown_only(content="", options={})
-    ::Kramdown::Document.new( content.presence, { input: :GFM }.merge(options || {}) ).to_html.html_safe
+    ::Kramdown::Document.new( content.presence || "", { input: :GFM }.merge(options || {}) ).to_html.html_safe
   end
 
   def self.raconteur
