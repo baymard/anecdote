@@ -46,6 +46,7 @@ module Anecdote
             content = settings[:embed_code].html_safe
             dimensions = settings[:dimensions].split('x').map(&:to_f)
             geo = { width: dimensions.first, height: dimensions.last }
+            klasses << 'v-embed-code'
           end
           if settings[:_scope_].present? && settings[:_scope_].key?(:processor) && settings[:_scope_][:processor].tag == 'gallery'
             settings[:_scope_][:settings][:_graphics_] ||= []
