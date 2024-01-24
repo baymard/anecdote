@@ -65,7 +65,7 @@ module Anecdote
       handler: lambda do |settings|
         klasses = ['anecdote-gallery-dn2bak']
         klasses += module_classes(settings)
-        graphics = settings[:_yield_].html_safe
+        graphics = settings[:_yield_]&.html_safe
 
         # handle scaling
         flexes = []
